@@ -41,7 +41,12 @@ namespace Transposer.Library
 
             Note = GetNote(match.Groups[noteLetterGroup].Value, match.Groups[accidentGroup].Value);
             Tonality = GetTonality(match.Groups[diminutiveOrAugmentedGroup].Value, match.Groups[tonalityGroup].Value);
-            Complement = match.Groups[firstComplementGroup].Value + match.Groups[secondComplementGroup].Value;
+
+            if (Tonality == Tonality.Augmented || Tonality == Tonality.Diminuted || Tonality == Tonality.HalfDiminuted)
+                Complement = "";
+            else
+                Complement = match.Groups[firstComplementGroup].Value + match.Groups[secondComplementGroup].Value;
+
             Inversion = GetInversion(match.Groups[inversionLetterGroup].Value, match.Groups[inversionAccidentGroup].Value);
         }
 
@@ -123,6 +128,10 @@ namespace Transposer.Library
             else if (diminutiveOrAugmentedValue == Tonality.Diminuted.GetDescription())
             {
                 return Tonality.Diminuted;
+            }
+            else if (diminutiveOrAugmentedValue == Tonality.HalfDiminuted.GetDescription())
+            {
+                return Tonality.HalfDiminuted;
             }
             else
             {

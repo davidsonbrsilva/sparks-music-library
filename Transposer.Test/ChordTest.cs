@@ -41,7 +41,7 @@ namespace Transposer.Test
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreEquals_When_CreateChordObjectWithString()
+        public void Should_SayThatObjectsAreEquals_When_CreateChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
             var tonality = Tonality.Major;
@@ -54,10 +54,17 @@ namespace Transposer.Test
             Assert.Equal(tonality, chord.Tonality);
             Assert.Equal(complement, chord.Complement);
             Assert.Equal(inversion, chord.Inversion);
+            Assert.Equal("A7M(b5)/D#", chord.ToString());
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreDifferent_When_CreateChordObjectWithString()
+        public void Should_ThrowsNotAChordException_When_CreateChordObjectWithInvalidString()
+        {
+            Assert.Throws<NotAChordException>(() => new Chord("H"));
+        }
+
+        [Fact]
+        public void Should_SayThatObjectsAreDifferent_When_CreateChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.C, Accident.Sharp);
             var tonality = Tonality.Minor;
@@ -73,7 +80,7 @@ namespace Transposer.Test
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreEquals_When_CreateAugmentedChordObjectWithString()
+        public void Should_SayThatObjectsAreEquals_When_CreateAugmentedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
             var tonality = Tonality.Augmented;
@@ -86,10 +93,11 @@ namespace Transposer.Test
             Assert.Equal(tonality, chord.Tonality);
             Assert.Equal(complement, chord.Complement);
             Assert.Equal(inversion, chord.Inversion);
+            Assert.Equal("A+", chord.ToString());
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreDifferent_When_CreateAugmentedChordObjectWithString()
+        public void Should_SayThatObjectsAreDifferent_When_CreateAugmentedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.C, Accident.Sharp);
             var tonality = Tonality.Minor;
@@ -105,7 +113,7 @@ namespace Transposer.Test
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreEquals_When_CreateDiminutedChordObjectWithString()
+        public void Should_SayThatObjectsAreEquals_When_CreateDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
             var tonality = Tonality.Diminuted;
@@ -118,10 +126,11 @@ namespace Transposer.Test
             Assert.Equal(tonality, chord.Tonality);
             Assert.Equal(complement, chord.Complement);
             Assert.Equal(inversion, chord.Inversion);
+            Assert.Equal("A°", chord.ToString());
         }
 
         [Fact]
-        public void Should_SayThatObjectsAreDifferent_When_CreateDiminutedChordObjectWithString()
+        public void Should_SayThatObjectsAreDifferent_When_CreateDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.C, Accident.Sharp);
             var tonality = Tonality.Minor;
@@ -129,6 +138,39 @@ namespace Transposer.Test
             var inversion = new Note(NoteLetter.D, Accident.Sharp);
 
             var chord = new Chord("A°");
+
+            Assert.NotEqual(note, chord.Note);
+            Assert.NotEqual(tonality, chord.Tonality);
+            Assert.NotEqual(complement, chord.Complement);
+            Assert.NotEqual(inversion, chord.Inversion);
+        }
+
+        [Fact]
+        public void Should_SayThatObjectsAreEquals_When_CreateHalfDiminutedChordObjectWithValidString()
+        {
+            var note = new Note(NoteLetter.A, Accident.None);
+            var tonality = Tonality.HalfDiminuted;
+            var complement = "";
+            Note inversion = null;
+
+            var chord = new Chord("Am7(b5)");
+
+            Assert.Equal(note, chord.Note);
+            Assert.Equal(tonality, chord.Tonality);
+            Assert.Equal(complement, chord.Complement);
+            Assert.Equal(inversion, chord.Inversion);
+            Assert.Equal("Am7(b5)", chord.ToString());
+        }
+
+        [Fact]
+        public void Should_SayThatObjectsAreDifferent_When_CreateHalfDiminutedChordObjectWithValidString()
+        {
+            var note = new Note(NoteLetter.C, Accident.Sharp);
+            var tonality = Tonality.Minor;
+            var complement = "7(11)";
+            var inversion = new Note(NoteLetter.D, Accident.Sharp);
+
+            var chord = new Chord("Am7(b5)");
 
             Assert.NotEqual(note, chord.Note);
             Assert.NotEqual(tonality, chord.Tonality);
