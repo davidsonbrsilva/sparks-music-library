@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Transposer.Library\Transposer.Library.csproj" />
+    <ProjectReference Include="..\SparksMusic.Library\SparksMusic.Library.csproj" />
   </ItemGroup>
 
 </Project>

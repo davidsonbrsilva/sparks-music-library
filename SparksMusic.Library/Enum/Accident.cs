@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Transposer.Library.Enum
+namespace SparksMusic.Library.Enum
 {
     public enum Accident
     {

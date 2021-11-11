@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Transposer.Library
+namespace SparksMusic.Library
 {
     public class NotAChordException : Exception
     {

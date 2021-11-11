@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Transposer.Library.Utils
+namespace SparksMusic.Library.Utils
 {
     public static class EnumUtils
     {

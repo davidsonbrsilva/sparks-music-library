@@ -1,8 +1,8 @@
 ﻿using System;
-using Transposer.Library.Enum;
-using Transposer.Library.Extensions;
+using SparksMusic.Library.Enum;
+using SparksMusic.Library.Extensions;
 
-namespace Transposer.Library
+namespace SparksMusic.Library
 {
     /// <summary>
     /// Classe de nota.

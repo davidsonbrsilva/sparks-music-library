@@ -1,6 +1,6 @@
 using System;
-using Transposer.Library;
-using Transposer.Library.Enum;
+using SparksMusic.Library;
+using SparksMusic.Library.Enum;
 using Xunit;
 
 namespace Transposer.Test

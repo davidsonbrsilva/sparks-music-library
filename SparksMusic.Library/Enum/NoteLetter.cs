@@ -1,4 +1,4 @@
-﻿namespace Transposer.Library.Enum
+﻿namespace SparksMusic.Library.Enum
 {
     public enum NoteLetter
     {

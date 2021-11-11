@@ -1,12 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Reflection;
 using System.Text.RegularExpressions;
-using Transposer.Library.Enum;
-using Transposer.Library.Extensions;
-using Transposer.Library.Utils;
+using SparksMusic.Library.Enum;
+using SparksMusic.Library.Extensions;
+using SparksMusic.Library.Utils;
 
-namespace Transposer.Library
+namespace SparksMusic.Library
 {
     /// <summary>
     /// Classe de acorde.
