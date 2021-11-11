@@ -10,8 +10,8 @@ namespace SparksMusic.Library
     /// </summary>
     public static class Transposer
     {
-        private static readonly Node FlatMap = BuildFlatMap();
-        private static readonly Node SharpMap = BuildSharpMap();
+        private static readonly Node _flatMap = BuildFlatMap();
+        private static readonly Node _sharpMap = BuildSharpMap();
 
         private const int SemitonesOnTheScale = 12;
 
@@ -39,11 +39,16 @@ namespace SparksMusic.Library
         {
             semitones = NormalizeSemitones(semitones);
 
-            var map = SharpMap;
+            if (semitones == 0)
+            {
+                return chord;
+            }
+
+            var map = _sharpMap;
 
             if (chord.Note.Accident == Accident.Flat || chord.Note.Accident == Accident.DoubleFlat)
             {
-                map = FlatMap;
+                map = _flatMap;
             }
 
             var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
@@ -97,13 +102,15 @@ namespace SparksMusic.Library
             semitones = NormalizeSemitones(semitones);
 
             if (semitones == 0)
+            {
                 return chord;
+            }
 
-            var map = FlatMap;
+            var map = _flatMap;
 
             if (chord.Note.Accident == Accident.Sharp || chord.Note.Accident == Accident.DoubleSharp)
             {
-                map = SharpMap;
+                map = _sharpMap;
             }
 
             var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
@@ -152,7 +159,9 @@ namespace SparksMusic.Library
         private static int NormalizeSemitones(int semitones)
         {
             if (semitones < 0)
+            {
                 throw new ArgumentOutOfRangeException("Semitones can not be negative numbers.");
+            }
 
             return semitones % SemitonesOnTheScale;
         }
@@ -298,7 +307,108 @@ namespace SparksMusic.Library
         {
             var head = new Node(new Note(NoteLetter.A, Accident.None));
 
+            // A
+            var current = head;
+            current.Right = new Node(new Note(NoteLetter.A, Accident.Sharp));
+            current.Right.Left = current;
 
+            // A#
+            current = current.Right;
+            current.Right = new Node(new Note(NoteLetter.A, Accident.DoubleSharp));
+            current.Right.Left = current;
+
+            // A##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.B, Accident.None));
+            current.Down.Up = current;
+
+            // B
+            current = current.Down;
+            current.Right = new Node(new Note(NoteLetter.B, Accident.Sharp));
+            current.Right.Left = current;
+
+            // B#
+            current = current.Right;
+            current.Right = new Node(new Note(NoteLetter.B, Accident.DoubleSharp));
+            current.Right.Left = current;
+            current.Down = new Node(new Note(NoteLetter.C, Accident.None));
+            current.Down.Up = current;
+
+            // B##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.C, Accident.Sharp));
+            current.Down.Up = current;
+
+            // C#
+            current = current.Down;
+            current.Left = current.Up.Left.Down;
+            current.Left.Right = current;
+            current.Right = new Node(new Note(NoteLetter.C, Accident.DoubleSharp));
+            current.Right.Left = current;
+
+            // C##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.D, Accident.None));
+            current.Down.Up = current;
+
+            // D
+            current = current.Down;
+            current.Right = new Node(new Note(NoteLetter.D, Accident.Sharp));
+            current.Right.Left = current;
+
+            // D#
+            current = current.Right;
+            current.Right = new Node(new Note(NoteLetter.D, Accident.DoubleSharp));
+            current.Right.Left = current;
+
+            // D##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.E, Accident.None));
+            current.Down.Up = current;
+
+            // E
+            current = current.Down;
+            current.Right = new Node(new Note(NoteLetter.E, Accident.Sharp));
+            current.Right.Left = current;
+
+            // E#
+            current = current.Right;
+            current.Right = new Node(new Note(NoteLetter.E, Accident.DoubleSharp));
+            current.Right.Left = current;
+            current.Down = new Node(new Note(NoteLetter.F, Accident.None));
+            current.Down.Up = current;
+
+            // E##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.F, Accident.Sharp));
+            current.Down.Up = current;
+
+            // F#
+            current = current.Down;
+            current.Left = current.Up.Left.Down;
+            current.Left.Right = current;
+            current.Right = new Node(new Note(NoteLetter.F, Accident.DoubleSharp));
+            current.Right.Left = current;
+
+            // F##
+            current = current.Right;
+            current.Down = new Node(new Note(NoteLetter.G, Accident.None));
+            current.Down.Up = current;
+
+            // G
+            current = current.Down;
+            current.Right = new Node(new Note(NoteLetter.G, Accident.Sharp));
+            current.Right.Left = current;
+
+            // G#
+            current = current.Right;
+            current.Right = new Node(new Note(NoteLetter.G, Accident.DoubleSharp));
+            current.Right.Left = current;
+
+            // G##
+            current = current.Right;
+            current.Down = head;
+            current.Down.Up = current;
 
             return head;
         }

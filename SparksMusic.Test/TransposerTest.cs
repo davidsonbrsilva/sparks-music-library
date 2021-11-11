@@ -14,7 +14,7 @@ namespace SparksMusic.Test
         [InlineData("Abb", 13, "Ab")]
         [InlineData("Abb", 11, "Gb")]
         [InlineData("Cbb", 3, "Db")]
-        [InlineData("A#", 3, "G")]
+        [InlineData("A#", 3, "C#")]
         [InlineData("A##", 3, "D")]
         [InlineData("A##", 12, "A##")]
         [InlineData("A##", 13, "C")]
