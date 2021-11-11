@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SparksMusic.Library</name>
+    </assembly>
+    <members>
+        <member name="T:SparksMusic.Library.Chord">
+            <summary>
+            Chord class
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Chord.Note">
+            <summary>
+            Chord note
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Chord.Tonality">
+            <summary>
+            Chord tonality
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Chord.Complement">
+            <summary>
+            Chord complement
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Chord.Inversion">
+            <summary>
+            Chord inversion
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.Chord.#ctor(System.String)">
+            <summary>
+            Creates a chord object from a string. Considers only the first match.
+            </summary>
+            <param name="chord">The chord</param>
+        </member>
+        <member name="M:SparksMusic.Library.Chord.#ctor(SparksMusic.Library.Note,SparksMusic.Library.Enum.Tonality,System.String,SparksMusic.Library.Note)">
+            <summary>
+            Creates a chord object.
+            </summary>
+            <param name="note">The chord note</param>
+            <param name="tonality">The chord tonality</param>
+            <param name="complement">The chord complement</param>
+            <param name="inversion">The chord inversion</param>
+        </member>
+        <member name="M:SparksMusic.Library.Chord.Equals(SparksMusic.Library.Chord)">
+            <summary>
+            Compare two chords.
+            </summary>
+            <param name="other">The other chord</param>
+            <returns>True if both have same name.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Chord.op_Increment(SparksMusic.Library.Chord)">
+            <summary>
+            Transposes up chord a semitone.
+            </summary>
+            <param name="chord">The chord</param>
+            <returns>The transposed chord</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Chord.op_Decrement(SparksMusic.Library.Chord)">
+            <summary>
+            Transposes down chord a semitone.
+            </summary>
+            <param name="chord">The chord</param>
+            <returns>The transposed chord</returns>
+        </member>
+        <member name="T:SparksMusic.Library.Note">
+            <summary>
+            Note class
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Note.NoteLetter">
+            <summary>
+            Note letter
+            </summary>
+        </member>
+        <member name="P:SparksMusic.Library.Note.Accident">
+            <summary>
+            Note accident
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.Note.#ctor(SparksMusic.Library.Enum.NoteLetter,SparksMusic.Library.Enum.Accident)">
+            <summary>
+            Creates a note object.
+            </summary>
+            <param name="noteLetter">A letra da nota (A, B, C, D, E, F ou G)</param>
+            <param name="accident">O acidente da nota</param>
+        </member>
+        <member name="M:SparksMusic.Library.Note.Equals(SparksMusic.Library.Note)">
+            <summary>
+            Compare two notes.
+            </summary>
+            <param name="other">The other note</param>
+            <returns>True if both have the same name.</returns>
+        </member>
+        <member name="T:SparksMusic.Library.Transposer">
+            <summary>
+            Transposer class
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeUp(System.String,System.Int32)">
+            <summary>
+            Transposes up a chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord.</returns>
+            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeUp(SparksMusic.Library.Chord,System.Int32)">
+            <summary>
+            Transposes up a chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord.</returns>
+            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeDown(System.String,System.Int32)">
+            <summary>
+            Transposes down a chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord.</returns>
+            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeDown(SparksMusic.Library.Chord,System.Int32)">
+            <summary>
+            Transposes down a chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord.</returns>
+            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+    </members>
+</doc>

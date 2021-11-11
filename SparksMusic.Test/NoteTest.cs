@@ -1,9 +1,8 @@
-using System;
 using SparksMusic.Library;
 using SparksMusic.Library.Enum;
 using Xunit;
 
-namespace Transposer.Test
+namespace SparksMusic.Test
 {
     public class NoteTest
     {

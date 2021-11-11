@@ -1,6 +1,10 @@
-﻿namespace SparksMusic.Library
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SparksMusic.Test")]
+
+namespace SparksMusic.Library.Internal
 {
-    public class Node
+    class Node
     {
         public Node Up { get; set; }
         public Node Right { get; set; }

@@ -1,32 +1,48 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using SparksMusic.Library.Enum;
+using SparksMusic.Library.Exceptions;
 using SparksMusic.Library.Extensions;
 using SparksMusic.Library.Utils;
 
 namespace SparksMusic.Library
 {
     /// <summary>
-    /// Classe de acorde.
+    /// Chord class
     /// </summary>
     public class Chord : IEquatable<Chord>
     {
+        /// <summary>
+        /// Chord note
+        /// </summary>
         public Note Note { get; }
+
+        /// <summary>
+        /// Chord tonality
+        /// </summary>
         public Tonality Tonality { get; }
+
+        /// <summary>
+        /// Chord complement
+        /// </summary>
         public string Complement { get; }
+
+        /// <summary>
+        /// Chord inversion
+        /// </summary>
         public Note Inversion { get; }
 
         /// <summary>
-        /// Cria um objeto de acorde a partir de uma string. Considera somente o primeiro match.
+        /// Creates a chord object from a string. Considers only the first match.
         /// </summary>
-        /// <param name="chord"></param>
+        /// <param name="chord">The chord</param>
         public Chord(string chord)
         {
             var regex = new Regex(GetChordPattern());
             var match = regex.Match(chord);
 
             if (!match.Success)
-                throw new NotAChordException("A cadeia de caracteres fornecida não corresponde a um acorde válido.");
+                throw new NotAChordException("The string provided does not match a valid chord.");
 
             const int noteLetterGroup = 1;
             const int accidentGroup = 2;
@@ -39,28 +55,53 @@ namespace SparksMusic.Library
 
             Note = GetNote(match.Groups[noteLetterGroup].Value, match.Groups[accidentGroup].Value);
             Tonality = GetTonality(match.Groups[diminutiveOrAugmentedGroup].Value, match.Groups[tonalityGroup].Value);
-
-            if (Tonality == Tonality.Augmented || Tonality == Tonality.Diminuted || Tonality == Tonality.HalfDiminuted)
-                Complement = "";
-            else
-                Complement = match.Groups[firstComplementGroup].Value + match.Groups[secondComplementGroup].Value;
-
+            Complement = GetComplement(Tonality, $"{match.Groups[firstComplementGroup].Value}{match.Groups[secondComplementGroup].Value}");
             Inversion = GetInversion(match.Groups[inversionLetterGroup].Value, match.Groups[inversionAccidentGroup].Value);
         }
 
         /// <summary>
-        /// Cria um objeto de acorde.
+        /// Creates a chord object.
         /// </summary>
-        /// <param name="note">A nota do acorde</param>
-        /// <param name="tonality">A tonalidade do acorde.</param>
-        /// <param name="complement">O complemento do acorde.</param>
-        /// <param name="inversion">A inversão do acorde.</param>
+        /// <param name="note">The chord note</param>
+        /// <param name="tonality">The chord tonality</param>
+        /// <param name="complement">The chord complement</param>
+        /// <param name="inversion">The chord inversion</param>
         public Chord(Note note, Tonality tonality = Tonality.Major, string complement = "", Note inversion = null)
         {
             Note = note;
             Tonality = tonality;
             Complement = complement;
             Inversion = inversion;
+        }
+
+        /// <summary>
+        /// Compare two chords.
+        /// </summary>
+        /// <param name="other">The other chord</param>
+        /// <returns>True if both have same name.</returns>
+        public bool Equals(Chord other)
+        {
+            return other != null && ToString().Equals(other.ToString());
+        }
+
+        /// <summary>
+        /// Transposes up chord a semitone.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <returns>The transposed chord</returns>
+        public static Chord operator ++(Chord chord)
+        {
+            return Transposer.TransposeUp(chord, 1);
+        }
+
+        /// <summary>
+        /// Transposes down chord a semitone.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <returns>The transposed chord</returns>
+        public static Chord operator --(Chord chord)
+        {
+            return Transposer.TransposeDown(chord, 1);
         }
 
         public override string ToString()
@@ -77,22 +118,7 @@ namespace SparksMusic.Library
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Note,Tonality,Complement,Inversion);
-        }
-
-        public bool Equals(Chord other)
-        {
-            return other != null && ToString().Equals(other.ToString());
-        }
-
-        public static Chord operator ++(Chord chord)
-        {
-            return Transposer.TransposeUp(chord, 1);
-        }
-
-        public static Chord operator --(Chord chord)
-        {
-            return Transposer.TransposeDown(chord, 1);
+            return HashCode.Combine(Note, Tonality, Complement, Inversion);
         }
 
         private static string GetChordPattern()
@@ -134,6 +160,18 @@ namespace SparksMusic.Library
             else
             {
                 return EnumUtils.Parse<Tonality>(tonality);
+            }
+        }
+
+        private static string GetComplement(Tonality tonality, string text)
+        {
+            if (tonality == Tonality.Augmented || tonality == Tonality.Diminuted || tonality == Tonality.HalfDiminuted)
+            {
+                return "";
+            }
+            else
+            {
+                return text;
             }
         }
 

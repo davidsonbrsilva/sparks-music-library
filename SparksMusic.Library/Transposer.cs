@@ -1,20 +1,45 @@
 ﻿using SparksMusic.Library.Enum;
+using SparksMusic.Library.Internal;
 using System;
 
 namespace SparksMusic.Library
 {
+    /// <summary>
+    /// Transposer class
+    /// </summary>
     public static class Transposer
     {
-        public static readonly Node FlatMap = BuildFlatMap();
-        public static readonly Node SharpMap = BuildSharpMap();
+        #region Readonly fields
+        private static readonly Node FlatMap = BuildFlatMap();
+        private static readonly Node SharpMap = BuildSharpMap();
+        #endregion
 
+        #region Constants
         private const int SemitonesOnTheScale = 12;
+        #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Transposes up a chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord.</returns>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(string chord, int semitones)
         {
             return TransposeUp(new Chord(chord), semitones);
         }
 
+        /// <summary>
+        /// Transposes up a chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord.</returns>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(Chord chord, int semitones)
         {
             semitones = NormalizeSemitones(semitones);
@@ -52,14 +77,33 @@ namespace SparksMusic.Library
             return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
         }
 
+        /// <summary>
+        /// Transposes down a chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord.</returns>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(string chord, int semitones)
         {
             return TransposeDown(new Chord(chord), semitones);
         }
 
+        /// <summary>
+        /// Transposes down a chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord.</returns>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(Chord chord, int semitones)
         {
             semitones = NormalizeSemitones(semitones);
+
+            if (semitones == 0)
+                return chord;
 
             var map = FlatMap;
 
@@ -93,11 +137,13 @@ namespace SparksMusic.Library
 
             return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
         }
+        #endregion
 
+        #region Private Methods
         private static int NormalizeSemitones(int semitones)
         {
             if (semitones < 0)
-                throw new ArgumentOutOfRangeException("Semitons não podem ser negativos.");
+                throw new ArgumentOutOfRangeException("Semitones can not be negative numbers.");
 
             return semitones % SemitonesOnTheScale;
         }
@@ -108,6 +154,7 @@ namespace SparksMusic.Library
 
             if (mapHeadNode.Note.Equals(note))
             {
+                mapHeadNode.HasVisited = false;
                 return mapHeadNode;
             }
 
@@ -246,5 +293,6 @@ namespace SparksMusic.Library
 
             return head;
         }
+        #endregion
     }
 }

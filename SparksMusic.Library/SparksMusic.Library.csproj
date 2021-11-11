@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\davidson\lab\proj\transposer\SparksMusic.Library\SparksMusic.Library.xml</DocumentationFile>
+  </PropertyGroup>
+
 </Project>
