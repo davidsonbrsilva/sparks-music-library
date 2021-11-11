@@ -177,5 +177,23 @@ namespace Transposer.Test
             Assert.NotEqual(complement, chord.Complement);
             Assert.NotEqual(inversion, chord.Inversion);
         }
+
+        [Fact]
+        public void Should_UpASemitoneToTheChord_When_CallIncrementOperator()
+        {
+            var chord = new Chord("Abm7(b5)");
+            chord++;
+
+            Assert.Equal("Am7(b5)", chord.ToString());
+        }
+
+        [Fact]
+        public void Should_DownASemitoneToTheChord_When_CallDecrementOperator()
+        {
+            var chord = new Chord("Abm7(b5)");
+            chord--;
+
+            Assert.Equal("Gm7(b5)", chord.ToString());
+        }
     }
 }

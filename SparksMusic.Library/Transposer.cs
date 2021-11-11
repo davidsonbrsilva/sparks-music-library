@@ -1,4 +1,5 @@
 ﻿using SparksMusic.Library.Enum;
+using System;
 
 namespace SparksMusic.Library
 {
@@ -7,6 +8,8 @@ namespace SparksMusic.Library
         public static readonly Node FlatMap = BuildFlatMap();
         public static readonly Node SharpMap = BuildSharpMap();
 
+        private const int SemitonesOnTheScale = 12;
+
         public static Chord TransposeUp(string chord, int semitones)
         {
             return TransposeUp(new Chord(chord), semitones);
@@ -14,6 +17,8 @@ namespace SparksMusic.Library
 
         public static Chord TransposeUp(Chord chord, int semitones)
         {
+            semitones = NormalizeSemitones(semitones);
+
             var map = SharpMap;
 
             if (chord.Note.Accident == Accident.Flat || chord.Note.Accident == Accident.DoubleFlat)
@@ -54,6 +59,8 @@ namespace SparksMusic.Library
 
         public static Chord TransposeDown(Chord chord, int semitones)
         {
+            semitones = NormalizeSemitones(semitones);
+
             var map = FlatMap;
 
             if (chord.Note.Accident == Accident.Sharp || chord.Note.Accident == Accident.DoubleSharp)
@@ -85,6 +92,14 @@ namespace SparksMusic.Library
             }
 
             return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
+        }
+
+        private static int NormalizeSemitones(int semitones)
+        {
+            if (semitones < 0)
+                throw new ArgumentOutOfRangeException("Semitons não podem ser negativos.");
+
+            return semitones % SemitonesOnTheScale;
         }
 
         private static Node FindHeadNodeFromNote(Node mapHeadNode, Note note)

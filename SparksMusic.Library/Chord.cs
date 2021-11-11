@@ -87,12 +87,12 @@ namespace SparksMusic.Library
 
         public static Chord operator ++(Chord chord)
         {
-            throw new NotImplementedException();
+            return Transposer.TransposeUp(chord, 1);
         }
 
         public static Chord operator --(Chord chord)
         {
-            throw new NotImplementedException();
+            return Transposer.TransposeDown(chord, 1);
         }
 
         private static string GetChordPattern()

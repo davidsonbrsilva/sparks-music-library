@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SparksMusic.Library
 {
+    [ExcludeFromCodeCoverage]
     public class NotAChordException : Exception
     {
         public NotAChordException() { }

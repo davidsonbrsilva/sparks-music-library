@@ -405,7 +405,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Projects
-Transposer.ApplicationTest
+SparksMusic.ApplicationTest
 
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
