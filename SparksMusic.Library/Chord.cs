@@ -1,9 +1,9 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using SparksMusic.Library.Enum;
+﻿using SparksMusic.Library.Enum;
 using SparksMusic.Library.Exceptions;
 using SparksMusic.Library.Extensions;
 using SparksMusic.Library.Utils;
+using System;
+using System.Text.RegularExpressions;
 
 namespace SparksMusic.Library
 {
@@ -33,9 +33,10 @@ namespace SparksMusic.Library
         public Note Inversion { get; }
 
         /// <summary>
-        /// Creates a chord object from a string. Considers only the first match.
+        /// Creates a chord object from a string.
         /// </summary>
         /// <param name="chord">The chord</param>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         public Chord(string chord)
         {
             var regex = new Regex(GetChordPattern());
@@ -128,7 +129,7 @@ namespace SparksMusic.Library
             const string tonality = @"(m|sus2|sus4)?";
             const string interval = @"(2|4|6|7M|7|9|11|13)?";
             const string incrementInterval = @"(b2|2|4|4#|b5|5|#5|6|7|7M|b9|9|11|#11|13)";
-            
+
             string note = $@"{noteLetter}{accident}";
             string complement = $@"(\+|°|{tonality}{interval}(\({incrementInterval}(,{incrementInterval})*\))?)";
             string inversion = $@"(\/{noteLetter}{accident})?";
@@ -165,14 +166,7 @@ namespace SparksMusic.Library
 
         private static string GetComplement(Tonality tonality, string text)
         {
-            if (tonality == Tonality.Augmented || tonality == Tonality.Diminuted || tonality == Tonality.HalfDiminuted)
-            {
-                return "";
-            }
-            else
-            {
-                return text;
-            }
+            return tonality == Tonality.Augmented || tonality == Tonality.Diminuted || tonality == Tonality.HalfDiminuted ? "" : text;
         }
 
         private static Note GetInversion(string noteLetterValue, string accidentValue)

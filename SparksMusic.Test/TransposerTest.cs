@@ -42,5 +42,51 @@ namespace SparksMusic.Test
         {
             Assert.Equal(expected, Transposer.TransposeDown(chord, semitones).ToString());
         }
+
+        [Theory]
+        [InlineData("A")]
+        [InlineData("A#")]
+        [InlineData("A##")]
+        [InlineData("Ab")]
+        [InlineData("Abb")]
+        [InlineData("Am")]
+        [InlineData("A#m")]
+        [InlineData("A##m")]
+        [InlineData("Abm")]
+        [InlineData("Abbm")]
+        [InlineData("A7")]
+        [InlineData("Am7")]
+        [InlineData("Am7M")]
+        [InlineData("Am7(b5)")]
+        [InlineData("A/G")]
+        [InlineData("A#m7(b5,11)")]
+        [InlineData("A#m(b5,11,13)/G#")]
+        [InlineData("A+")]
+        [InlineData("A°")]
+        public void Should_ReturnTrue_When_CallIsValidMethodPassingAValidChordName(string chordName)
+        {
+            Assert.True(Transposer.IsChord(chordName));
+        }
+
+        [Theory]
+        [InlineData("H")]
+        [InlineData("A###")]
+        [InlineData("Abbb")]
+        [InlineData("A#b")]
+        [InlineData("Ab#")]
+        [InlineData("AbM")]
+        [InlineData("A+°")]
+        [InlineData("A°+")]
+        [InlineData("A(b5")]
+        [InlineData("Ab5)")]
+        [InlineData("A+(b5)")]
+        [InlineData("Am(b5,)")]
+        [InlineData("A/")]
+        [InlineData("A/GF")]
+        [InlineData("AG")]
+        public void Should_ReturnFalse_When_CallIsValidMethodPassingAInvalidChordName(string chordName)
+        {
+            Assert.False(Transposer.IsChord(chordName));
+        }
     }
 }

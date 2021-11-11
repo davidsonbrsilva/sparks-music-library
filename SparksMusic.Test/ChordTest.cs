@@ -18,9 +18,9 @@ namespace SparksMusic.Test
             var inversionAccident = Accident.Sharp;
 
             var chord1 = new Chord(
-                new Note(noteLetter, accident), 
-                tonality, 
-                complement, 
+                new Note(noteLetter, accident),
+                tonality,
+                complement,
                 new Note(inversionNoteLetter, inversionAccident));
 
             var chord2 = new Chord(

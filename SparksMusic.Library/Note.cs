@@ -1,6 +1,6 @@
-﻿using System;
-using SparksMusic.Library.Enum;
+﻿using SparksMusic.Library.Enum;
 using SparksMusic.Library.Extensions;
+using System;
 
 namespace SparksMusic.Library
 {
@@ -24,7 +24,7 @@ namespace SparksMusic.Library
         /// </summary>
         /// <param name="noteLetter">The note letter (A, B, C, D, E, F or G)</param>
         /// <param name="accident">The note accident</param>
-        public Note(NoteLetter noteLetter, Accident accident)
+        public Note(NoteLetter noteLetter, Accident accident = Accident.None)
         {
             NoteLetter = noteLetter;
             Accident = accident;

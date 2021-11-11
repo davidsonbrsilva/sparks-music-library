@@ -10,16 +10,11 @@ namespace SparksMusic.Library
     /// </summary>
     public static class Transposer
     {
-        #region Readonly fields
         private static readonly Node FlatMap = BuildFlatMap();
         private static readonly Node SharpMap = BuildSharpMap();
-        #endregion
 
-        #region Constants
         private const int SemitonesOnTheScale = 12;
-        #endregion
 
-        #region Public Methods
         /// <summary>
         /// Transposes up a chord.
         /// </summary>
@@ -39,7 +34,6 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
-        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(Chord chord, int semitones)
         {
@@ -97,7 +91,6 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
-        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(Chord chord, int semitones)
         {
@@ -150,14 +143,12 @@ namespace SparksMusic.Library
             {
                 return new Chord(chordName) != null;
             }
-            catch(NotAChordException)
+            catch (NotAChordException)
             {
                 return false;
             }
         }
-        #endregion
 
-        #region Private Methods
         private static int NormalizeSemitones(int semitones)
         {
             if (semitones < 0)
@@ -182,7 +173,7 @@ namespace SparksMusic.Library
             {
                 node = FindHeadNodeFromNote(mapHeadNode.Right, note);
             }
-            
+
             if (node is null && mapHeadNode.Down != null && !mapHeadNode.Down.HasVisited)
             {
                 node = FindHeadNodeFromNote(mapHeadNode.Down, note);
@@ -311,6 +302,5 @@ namespace SparksMusic.Library
 
             return head;
         }
-        #endregion
     }
 }
