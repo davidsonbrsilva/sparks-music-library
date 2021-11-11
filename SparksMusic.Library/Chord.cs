@@ -41,7 +41,7 @@ namespace SparksMusic.Library
             var regex = new Regex(GetChordPattern());
             var match = regex.Match(chord);
 
-            if (!match.Success)
+            if (!match.Success || match.Value != chord)
                 throw new NotAChordException("The string provided does not match a valid chord.");
 
             const int noteLetterGroup = 1;

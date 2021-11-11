@@ -84,8 +84,8 @@
             <summary>
             Creates a note object.
             </summary>
-            <param name="noteLetter">A letra da nota (A, B, C, D, E, F ou G)</param>
-            <param name="accident">O acidente da nota</param>
+            <param name="noteLetter">The note letter (A, B, C, D, E, F or G)</param>
+            <param name="accident">The note accident</param>
         </member>
         <member name="M:SparksMusic.Library.Note.Equals(SparksMusic.Library.Note)">
             <summary>
@@ -106,7 +106,7 @@
             <param name="chord">The chord</param>
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
-            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeUp(SparksMusic.Library.Chord,System.Int32)">
@@ -116,7 +116,7 @@
             <param name="chord">The chord</param>
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
-            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeDown(System.String,System.Int32)">
@@ -126,7 +126,7 @@
             <param name="chord">The chord</param>
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
-            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeDown(SparksMusic.Library.Chord,System.Int32)">
@@ -136,8 +136,15 @@
             <param name="chord">The chord</param>
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
-            <exception cref="!:NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
+            <summary>
+            Check if the given name is a valid chord.
+            </summary>
+            <param name="chordName">The chord name</param>
+            <returns>True if the given name is a valid chord.</returns>
         </member>
     </members>
 </doc>

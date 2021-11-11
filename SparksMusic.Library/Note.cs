@@ -22,8 +22,8 @@ namespace SparksMusic.Library
         /// <summary>
         /// Creates a note object.
         /// </summary>
-        /// <param name="noteLetter">A letra da nota (A, B, C, D, E, F ou G)</param>
-        /// <param name="accident">O acidente da nota</param>
+        /// <param name="noteLetter">The note letter (A, B, C, D, E, F or G)</param>
+        /// <param name="accident">The note accident</param>
         public Note(NoteLetter noteLetter, Accident accident)
         {
             NoteLetter = noteLetter;

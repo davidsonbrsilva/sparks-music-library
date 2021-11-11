@@ -1,4 +1,5 @@
 ﻿using SparksMusic.Library.Enum;
+using SparksMusic.Library.Exceptions;
 using SparksMusic.Library.Internal;
 using System;
 
@@ -136,6 +137,23 @@ namespace SparksMusic.Library
             }
 
             return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
+        }
+
+        /// <summary>
+        /// Check if the given name is a valid chord.
+        /// </summary>
+        /// <param name="chordName">The chord name</param>
+        /// <returns>True if the given name is a valid chord.</returns>
+        public static bool IsChord(string chordName)
+        {
+            try
+            {
+                return new Chord(chordName) != null;
+            }
+            catch(NotAChordException)
+            {
+                return false;
+            }
         }
         #endregion
 
