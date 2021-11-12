@@ -22,6 +22,7 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chord object is null.</exception>
         /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(string chord, int semitones)
@@ -35,9 +36,15 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chord object is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(Chord chord, int semitones)
         {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
             semitones = NormalizeSemitones(semitones);
 
             if (semitones == 0)
@@ -45,12 +52,7 @@ namespace SparksMusic.Library
                 return chord;
             }
 
-            var map = _sharpMap;
-
-            if (chord.Note.Accident == Accident.Flat || chord.Note.Accident == Accident.DoubleFlat)
-            {
-                map = _flatMap;
-            }
+            var map = GetCorrectMap(_sharpMap, chord);
 
             var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
 
@@ -67,7 +69,7 @@ namespace SparksMusic.Library
                 }
             }
 
-            if (initialChordNode.Note.Accident == Accident.Sharp || initialChordNode.Note.Accident == Accident.DoubleSharp)
+            if (initialChordNode.Note.IsSharpOrDoubleSharp)
             {
                 if (initialChordNode.Down != null)
                 {
@@ -84,9 +86,15 @@ namespace SparksMusic.Library
         /// <param name="chords">The chord list</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord list</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static List<Chord> TransposeUp(List<Chord> chords, int semitones)
         {
+            if (chords is null)
+            {
+                throw new ArgumentNullException(nameof(chords));
+            }
+
             var transposedChords = new List<Chord>();
 
             foreach (var chord in chords)
@@ -103,6 +111,7 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chord object is null.</exception>
         /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(string chord, int semitones)
@@ -116,9 +125,15 @@ namespace SparksMusic.Library
         /// <param name="chord">The chord</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(Chord chord, int semitones)
         {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
             semitones = NormalizeSemitones(semitones);
 
             if (semitones == 0)
@@ -126,12 +141,7 @@ namespace SparksMusic.Library
                 return chord;
             }
 
-            var map = _flatMap;
-
-            if (chord.Note.Accident == Accident.Sharp || chord.Note.Accident == Accident.DoubleSharp)
-            {
-                map = _sharpMap;
-            }
+            var map = GetCorrectMap(_flatMap, chord);
 
             var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
 
@@ -148,7 +158,7 @@ namespace SparksMusic.Library
                 }
             }
 
-            if (initialChordNode.Note.Accident == Accident.Flat || initialChordNode.Note.Accident == Accident.DoubleFlat)
+            if (initialChordNode.Note.IsFlatOrDoubleFlat)
             {
                 if (initialChordNode.Up != null)
                 {
@@ -165,9 +175,15 @@ namespace SparksMusic.Library
         /// <param name="chords">The chord list</param>
         /// <param name="semitones">The semitones to the transposition</param>
         /// <returns>A transposed chord list.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static List<Chord> TransposeDown(List<Chord> chords, int semitones)
         {
+            if (chords is null)
+            {
+                throw new ArgumentNullException(nameof(chords));
+            }
+
             var transposedChords = new List<Chord>();
 
             foreach (var chord in chords)
@@ -219,10 +235,20 @@ namespace SparksMusic.Library
         {
             if (semitones < 0)
             {
-                throw new ArgumentOutOfRangeException("Semitones can not be negative numbers.");
+                throw new ArgumentOutOfRangeException(nameof(semitones), "Semitones can not be negative numbers");
             }
 
             return semitones % SemitonesOnTheScale;
+        }
+
+        private static Node GetCorrectMap(Node map, Chord chord)
+        {
+            return chord switch
+            {
+                _ when chord.IsFlatOrDoubleFlat   => _flatMap,
+                _ when chord.IsSharpOrDoubleSharp => _sharpMap,
+                _                                 => map
+            };
         }
 
         private static Node FindHeadNodeFromNote(Node mapHeadNode, Note note)

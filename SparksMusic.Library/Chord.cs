@@ -33,6 +33,36 @@ namespace SparksMusic.Library
         public Note Inversion { get; }
 
         /// <summary>
+        /// True if chord is flat
+        /// </summary>
+        public bool IsFlat { get => Note.IsFlat; }
+
+        /// <summary>
+        /// True if chord is double flat
+        /// </summary>
+        public bool IsDoubleFlat { get => Note.IsDoubleFlat; }
+
+        /// <summary>
+        /// True if chord is flat or double flat
+        /// </summary>
+        public bool IsFlatOrDoubleFlat { get => IsFlat || IsDoubleFlat; }
+
+        /// <summary>
+        /// True if chord is sharp
+        /// </summary>
+        public bool IsSharp { get => Note.IsSharp; }
+
+        /// <summary>
+        /// True if chord is double sharp
+        /// </summary>
+        public bool IsDoubleSharp { get => Note.IsDoubleSharp; }
+
+        /// <summary>
+        /// True if chord is sharp or double sharp
+        /// </summary>
+        public bool IsSharpOrDoubleSharp { get => IsSharp || IsDoubleSharp; }
+
+        /// <summary>
         /// Creates a chord object from a string.
         /// </summary>
         /// <param name="chord">The chord</param>

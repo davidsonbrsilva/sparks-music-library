@@ -1,4 +1,6 @@
 ﻿using SparksMusic.Library;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SparksMusic.Test
@@ -19,9 +21,34 @@ namespace SparksMusic.Test
         [InlineData("A##", 12, "A##")]
         [InlineData("A##", 13, "C")]
         [InlineData("A##", 11, "A#")]
-        public void Should_TransposeChordUp_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chord, int semitones, string expected)
+        public void Should_TransposeChordUp_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chordName, int semitones, string expected)
         {
+            var chord = new Chord(chordName);
+            var chordList = new List<Chord>() { chord };
+
             Assert.Equal(expected, Transposer.TransposeUp(chord, semitones).ToString());
+            Assert.Equal(expected, Transposer.TransposeUp(chordName, semitones).ToString());
+            Assert.Equal(expected, Transposer.TransposeUp(chordList, semitones)[0].ToString());
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentNullException_When_CallTransposeUpMethodPassingANullChordAsArgument()
+        {
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeUp((string)null, 2));
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeUp((Chord)null, 2));
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeUp((List<Chord>)null, 2));
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentOutOfRangeException_When_CallTransposeUpMethodPassingANegativeSemitoneAsArgument()
+        {
+            var chordName = "A#";
+            var chord = new Chord(chordName);
+            var chordList = new List<Chord>() { chord };
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeUp(chord, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeUp(chordName, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeUp(chordList, -1));
         }
 
         [Theory]
@@ -41,6 +68,26 @@ namespace SparksMusic.Test
         public void Should_TransposeChordDown_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chord, int semitones, string expected)
         {
             Assert.Equal(expected, Transposer.TransposeDown(chord, semitones).ToString());
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentNullException_When_CallTransposeDownMethodPassingANullChordAsArgument()
+        {
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeDown((string)null, 2));
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeDown((Chord)null, 2));
+            Assert.Throws<ArgumentNullException>(() => Transposer.TransposeDown((List<Chord>)null, 2));
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentOutOfRangeException_When_CallTransposeDownMethodPassingANegativeSemitoneAsArgument()
+        {
+            var chordName = "A#";
+            var chord = new Chord(chordName);
+            var chordList = new List<Chord>() { chord };
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeDown(chord, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeDown(chordName, -1));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Transposer.TransposeDown(chordList, -1));
         }
 
         [Theory]
