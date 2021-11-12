@@ -225,7 +225,7 @@ namespace SparksMusic.Library
             {
                 return new Chord(chordName) != null;
             }
-            catch (NotAChordException)
+            catch (Exception)
             {
                 return false;
             }

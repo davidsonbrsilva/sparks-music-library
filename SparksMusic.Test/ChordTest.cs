@@ -1,6 +1,7 @@
 using SparksMusic.Library;
 using SparksMusic.Library.Enum;
 using SparksMusic.Library.Exceptions;
+using System;
 using Xunit;
 
 namespace SparksMusic.Test
@@ -61,7 +62,15 @@ namespace SparksMusic.Test
         [Fact]
         public void Should_ThrowsNotAChordException_When_CreateChordObjectWithInvalidString()
         {
+            Assert.Throws<NotAChordException>(() => new Chord(""));
             Assert.Throws<NotAChordException>(() => new Chord("H"));
+            Assert.Throws<NotAChordException>(() => new Chord("A#b"));
+        }
+
+        [Fact]
+        public void Should_ThrowsArgumentNullException_When_CreateChordObjectWithNullString()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Chord(null));
         }
 
         [Fact]

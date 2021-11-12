@@ -219,6 +219,7 @@
             <param name="chords">The chord list</param>
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord list.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when chords object is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.GetValidChords(System.Collections.Generic.List{System.String})">

@@ -92,6 +92,9 @@ namespace SparksMusic.Test
 
         [Theory]
         [InlineData("A")]
+        [InlineData(" A")]
+        [InlineData("A ")]
+        [InlineData(" A ")]
         [InlineData("A#")]
         [InlineData("A##")]
         [InlineData("Ab")]
@@ -116,6 +119,8 @@ namespace SparksMusic.Test
         }
 
         [Theory]
+        [InlineData(null)]
+        [InlineData("")]
         [InlineData("H")]
         [InlineData("A###")]
         [InlineData("Abbb")]

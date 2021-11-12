@@ -69,6 +69,8 @@ namespace SparksMusic.Library
         /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         public Chord(string chord)
         {
+            chord = chord.Trim();
+
             var regex = new Regex(GetChordPattern());
             var match = regex.Match(chord);
 
