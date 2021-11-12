@@ -107,8 +107,7 @@ namespace SparksMusic.Library
 
         public override string ToString()
         {
-            Console.WriteLine(Inversion);
-            string inversionString = Inversion is not null ? $"/{Inversion}" : "";
+            string inversionString = Inversion != null ? $"/{Inversion}" : "";
             return $"{Note}{Tonality.GetDescription()}{Complement}{inversionString}";
         }
 

@@ -119,6 +119,15 @@
             <returns>A transposed chord.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeUp(System.Collections.Generic.List{SparksMusic.Library.Chord},System.Int32)">
+            <summary>
+            Transposes up a list of chords.
+            </summary>
+            <param name="chords">The chord list</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord list</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeDown(System.String,System.Int32)">
             <summary>
             Transposes down a chord.
@@ -137,6 +146,22 @@
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeDown(System.Collections.Generic.List{SparksMusic.Library.Chord},System.Int32)">
+            <summary>
+            Transposes down a list of chords.
+            </summary>
+            <param name="chords">The chord list</param>
+            <param name="semitones">The semitones to the transposition</param>
+            <returns>A transposed chord list.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.GetValidChords(System.Collections.Generic.List{System.String})">
+            <summary>
+            Get valid chord from a chords string list.
+            </summary>
+            <param name="chords">The chords</param>
+            <returns>A list of valid chords.</returns>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
             <summary>

@@ -2,6 +2,7 @@
 using SparksMusic.Library.Exceptions;
 using SparksMusic.Library.Internal;
 using System;
+using System.Collections.Generic;
 
 namespace SparksMusic.Library
 {
@@ -78,6 +79,25 @@ namespace SparksMusic.Library
         }
 
         /// <summary>
+        /// Transposes up a list of chords.
+        /// </summary>
+        /// <param name="chords">The chord list</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord list</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        public static List<Chord> TransposeUp(List<Chord> chords, int semitones)
+        {
+            var transposedChords = new List<Chord>();
+
+            foreach (var chord in chords)
+            {
+                transposedChords.Add(TransposeUp(chord, semitones));
+            }
+
+            return transposedChords;
+        }
+
+        /// <summary>
         /// Transposes down a chord.
         /// </summary>
         /// <param name="chord">The chord</param>
@@ -137,6 +157,45 @@ namespace SparksMusic.Library
             }
 
             return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
+        }
+
+        /// <summary>
+        /// Transposes down a list of chords.
+        /// </summary>
+        /// <param name="chords">The chord list</param>
+        /// <param name="semitones">The semitones to the transposition</param>
+        /// <returns>A transposed chord list.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        public static List<Chord> TransposeDown(List<Chord> chords, int semitones)
+        {
+            var transposedChords = new List<Chord>();
+
+            foreach (var chord in chords)
+            {
+                transposedChords.Add(TransposeDown(chord, semitones));
+            }
+
+            return transposedChords;
+        }
+
+        /// <summary>
+        /// Get valid chord from a chords string list.
+        /// </summary>
+        /// <param name="chords">The chords</param>
+        /// <returns>A list of valid chords.</returns>
+        public static List<Chord> GetValidChords(List<string> chords)
+        {
+            var validChords = new List<Chord>();
+
+            foreach (var chord in chords)
+            {
+                if (IsChord(chord))
+                {
+                    validChords.Add(new Chord(chord));
+                }
+            }
+
+            return validChords;
         }
 
         /// <summary>
