@@ -1,6 +1,4 @@
 using SparksMusic.Library;
-using SparksMusic.Library.Enum;
-using SparksMusic.Library.Exceptions;
 using System;
 using Xunit;
 

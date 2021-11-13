@@ -1,7 +1,4 @@
-﻿using SparksMusic.Library.Enum;
-using SparksMusic.Library.Exceptions;
-using SparksMusic.Library.Extensions;
-using SparksMusic.Library.Utils;
+﻿using SparksMusic.Library.Utils;
 using System;
 using System.Text.RegularExpressions;
 
@@ -66,16 +63,22 @@ namespace SparksMusic.Library
         /// Creates a chord object from a string.
         /// </summary>
         /// <param name="chord">The chord</param>
-        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when chord parameter is null.</exception>
+        /// <exception cref="NotAChordException">Thrown when chord parameter is not a valid chord.</exception>
         public Chord(string chord)
         {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
             chord = chord.Trim();
 
             var regex = new Regex(GetChordPattern());
             var match = regex.Match(chord);
 
             if (!match.Success || match.Value != chord)
-                throw new NotAChordException("The string provided does not match a valid chord.");
+                throw new NotAChordException("The string provided does not match a valid chord");
 
             const int noteLetterGroup = 1;
             const int accidentGroup = 2;

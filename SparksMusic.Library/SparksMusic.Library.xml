@@ -64,9 +64,10 @@
             Creates a chord object from a string.
             </summary>
             <param name="chord">The chord</param>
-            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when chord parameter is null.</exception>
+            <exception cref="T:SparksMusic.Library.NotAChordException">Thrown when chord parameter is not a valid chord.</exception>
         </member>
-        <member name="M:SparksMusic.Library.Chord.#ctor(SparksMusic.Library.Note,SparksMusic.Library.Enum.Tonality,System.String,SparksMusic.Library.Note)">
+        <member name="M:SparksMusic.Library.Chord.#ctor(SparksMusic.Library.Note,SparksMusic.Library.Tonality,System.String,SparksMusic.Library.Note)">
             <summary>
             Creates a chord object.
             </summary>
@@ -141,7 +142,7 @@
             True if chord is sharp or double sharp
             </summary>
         </member>
-        <member name="M:SparksMusic.Library.Note.#ctor(SparksMusic.Library.Enum.NoteLetter,SparksMusic.Library.Enum.Accident)">
+        <member name="M:SparksMusic.Library.Note.#ctor(SparksMusic.Library.NoteLetter,SparksMusic.Library.Accident)">
             <summary>
             Creates a note object.
             </summary>
@@ -168,7 +169,7 @@
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown when chord object is null.</exception>
-            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeUp(SparksMusic.Library.Chord,System.Int32)">
@@ -199,7 +200,7 @@
             <param name="semitones">The semitones to the transposition</param>
             <returns>A transposed chord.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown when chord object is null.</exception>
-            <exception cref="T:SparksMusic.Library.Exceptions.NotAChordException">Thrown when input is not a valid chord.</exception>
+            <exception cref="T:SparksMusic.Library.NotAChordException">Thrown when input is not a valid chord.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeDown(SparksMusic.Library.Chord,System.Int32)">
@@ -228,6 +229,36 @@
             </summary>
             <param name="chords">The chords</param>
             <returns>A list of valid chords.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.GetSemitones(SparksMusic.Library.Note,SparksMusic.Library.Note)">
+            <summary>
+            Get the number of semitones from a chord to another.
+            </summary>
+            <param name="from">The origin chord</param>
+            <param name="to">The destiny chord</param>
+            <returns>The number of semitones from a chord to another.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.HasDifferentChromaticPole(SparksMusic.Library.Note,SparksMusic.Library.Note)">
+            <summary>
+            Check if two chords have different chromatic poles.
+            </summary>
+            <param name="note1">The first chord</param>
+            <param name="note2">The second chord</param>
+            <returns>True if both have different chromatic poles.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.GetChromaticCorrespondent(SparksMusic.Library.Note)">
+            <summary>
+            Get the chromatic correspondent note (if it is flat, the correspondent will be sharp and vice versa).
+            </summary>
+            <param name="note">The note</param>
+            <returns>The chromatic correspondent note.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.GetInterval(System.Int32)">
+            <summary>
+            Get interval from semitones.
+            </summary>
+            <param name="semitones">The semitones</param>
+            <returns>The interval.</returns>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
             <summary>

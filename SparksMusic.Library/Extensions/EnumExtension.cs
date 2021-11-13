@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SparksMusic.Library.Extensions
+namespace SparksMusic.Library
 {
     public static class EnumExtensions
     {

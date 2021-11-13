@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SparksMusic.Library.Enum
+namespace SparksMusic.Library
 {
     public enum Accident
     {

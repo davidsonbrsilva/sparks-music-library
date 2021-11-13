@@ -1,6 +1,4 @@
-﻿using SparksMusic.Library.Enum;
-using SparksMusic.Library.Extensions;
-using System;
+﻿using System;
 
 namespace SparksMusic.Library
 {

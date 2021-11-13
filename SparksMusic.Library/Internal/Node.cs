@@ -2,7 +2,7 @@
 
 [assembly: InternalsVisibleTo("SparksMusic.Test")]
 
-namespace SparksMusic.Library.Internal
+namespace SparksMusic.Library
 {
     class Node
     {

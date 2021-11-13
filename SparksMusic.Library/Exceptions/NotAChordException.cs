@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SparksMusic.Library.Exceptions
+namespace SparksMusic.Library
 {
     public class NotAChordException : Exception
     {
