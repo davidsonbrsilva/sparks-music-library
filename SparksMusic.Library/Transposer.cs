@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SparksMusic.Library
 {
@@ -190,6 +191,18 @@ namespace SparksMusic.Library
             }
 
             return transposedChords;
+        }
+
+        /// <summary>
+        /// Extract the chords from a input text.
+        /// </summary>
+        /// <param name="text">The text</param>
+        /// <returns>A list of chords.</returns>
+        public static List<Chord> ExtractChords(string text)
+        {
+            var words = text.Split(' ').ToList();
+            words = words.Where(word => word != "").ToList();
+            return GetValidChords(words.ToList());
         }
 
         /// <summary>

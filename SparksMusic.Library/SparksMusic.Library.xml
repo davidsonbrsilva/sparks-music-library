@@ -223,6 +223,13 @@
             <exception cref="T:System.ArgumentNullException">Thrown when chords object is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
+        <member name="M:SparksMusic.Library.Transposer.ExtractChords(System.String)">
+            <summary>
+            Extract the chords from a input text.
+            </summary>
+            <param name="text">The text</param>
+            <returns>A list of chords.</returns>
+        </member>
         <member name="M:SparksMusic.Library.Transposer.GetValidChords(System.Collections.Generic.List{System.String})">
             <summary>
             Get valid chord from a chords string list.
@@ -258,6 +265,14 @@
             Get interval from semitones.
             </summary>
             <param name="semitones">The semitones</param>
+            <returns>The interval.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.GetInterval(SparksMusic.Library.Note,SparksMusic.Library.Note)">
+            <summary>
+            Get interval from a note to other.
+            </summary>
+            <param name="from">The start note</param>
+            <param name="to">The end note</param>
             <returns>The interval.</returns>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
