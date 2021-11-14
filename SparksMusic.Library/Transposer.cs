@@ -15,6 +15,7 @@ namespace SparksMusic.Library
 
         private const int SemitonesOnTheScale = 12;
 
+        #region Public Methods
         /// <summary>
         /// Transposes up a chord.
         /// </summary>
@@ -39,21 +40,19 @@ namespace SparksMusic.Library
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeUp(Chord chord, int semitones)
         {
-            if (chord is null)
-            {
-                throw new ArgumentNullException(nameof(chord));
-            }
+            return Transpose(chord, semitones, TransposeUp);
+        }
 
-            semitones = NormalizeSemitones(semitones);
-
-            if (semitones == 0)
-            {
-                return chord;
-            }
-
-            var map = GetCorrectMap(_sharpMap, chord.Note);
-
-            var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
+        /// <summary>
+        /// Transposes up a note.
+        /// </summary>
+        /// <param name="note">The note</param>
+        /// <param name="semitones">A transposed note.</param>
+        /// <returns></returns>
+        public static Note TransposeUp(Note note, int semitones)
+        {
+            var map = GetCorrectMap(_sharpMap, note);
+            var initialChordNode = FindHeadNodeFromNote(map, note);
 
             while (semitones > 0)
             {
@@ -76,7 +75,7 @@ namespace SparksMusic.Library
                 }
             }
 
-            return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
+            return initialChordNode.Note;
         }
 
         /// <summary>
@@ -128,21 +127,19 @@ namespace SparksMusic.Library
         /// <exception cref="ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         public static Chord TransposeDown(Chord chord, int semitones)
         {
-            if (chord is null)
-            {
-                throw new ArgumentNullException(nameof(chord));
-            }
+            return Transpose(chord, semitones, TransposeDown);
+        }
 
-            semitones = NormalizeSemitones(semitones);
-
-            if (semitones == 0)
-            {
-                return chord;
-            }
-
-            var map = GetCorrectMap(_flatMap, chord.Note);
-
-            var initialChordNode = FindHeadNodeFromNote(map, chord.Note);
+        /// <summary>
+        /// Transposes down a note.
+        /// </summary>
+        /// <param name="note">The note</param>
+        /// <param name="semitones">The semitones</param>
+        /// <returns>A transposed note.</returns>
+        public static Note TransposeDown(Note note, int semitones)
+        {
+            var map = GetCorrectMap(_flatMap, note);
+            var initialChordNode = FindHeadNodeFromNote(map, note);
 
             while (semitones > 0)
             {
@@ -165,7 +162,7 @@ namespace SparksMusic.Library
                 }
             }
 
-            return new Chord(initialChordNode.Note, chord.Tonality, chord.Complement, chord.Inversion);
+            return initialChordNode.Note;
         }
 
         /// <summary>
@@ -335,6 +332,68 @@ namespace SparksMusic.Library
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Apply optmizations to the input chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <returns>The optmized chord.</returns>
+        public static Chord Optimize(Chord chord)
+        {
+            return OptimizeInversion(chord);
+        }
+        #endregion
+
+        #region Private Methods
+        private static Chord Transpose(Chord chord, int semitones, TransposeMethod transposeMethod)
+        {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
+            chord = Optimize(chord);
+            semitones = NormalizeSemitones(semitones);
+
+            if (semitones == 0)
+            {
+                return chord;
+            }
+
+            var transposedNote = transposeMethod(chord.Note, semitones);
+            Note transposedInversion = null;
+
+            if (chord.Inversion != null)
+            {
+                transposedInversion = transposeMethod(chord.Inversion, semitones);
+            }
+
+            return new Chord(transposedNote, chord.Tonality, chord.Complement, transposedInversion);
+        }
+
+        private static Chord OptimizeInversion(Chord chord)
+        {
+            Note note = chord.Note;
+            Note inversion = chord.Inversion;
+
+            if (chord is not null)
+            {
+                if (note is not null && inversion is not null)
+                {
+                    if (HasDifferentChromaticPole(chord.Note, chord.Inversion))
+                    {
+                        inversion = GetChromaticCorrespondent(chord.Inversion);
+                    }
+
+                    if (note.Equals(inversion))
+                    {
+                        inversion = null;
+                    }
+                }
+            }
+
+            return new Chord(note, chord.Tonality, chord.Complement, inversion);
         }
 
         private static int NormalizeSemitones(int semitones)
@@ -668,5 +727,10 @@ namespace SparksMusic.Library
                 { new Note(NoteLetter.G, Accident.DoubleSharp), new Note(NoteLetter.A, Accident.None) },
             };
         }
+        #endregion
+
+        #region Delegates
+        private delegate Note TransposeMethod(Note note, int semitones);
+        #endregion
     }
 }

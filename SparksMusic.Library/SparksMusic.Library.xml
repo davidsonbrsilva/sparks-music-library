@@ -182,6 +182,14 @@
             <exception cref="T:System.ArgumentNullException">Thrown when chord object is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
         </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeUp(SparksMusic.Library.Note,System.Int32)">
+            <summary>
+            Transposes up a note.
+            </summary>
+            <param name="note">The note</param>
+            <param name="semitones">A transposed note.</param>
+            <returns></returns>
+        </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeUp(System.Collections.Generic.List{SparksMusic.Library.Chord},System.Int32)">
             <summary>
             Transposes up a list of chords.
@@ -212,6 +220,14 @@
             <returns>A transposed chord.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown when chords object is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when semitones parameter is a negative number.</exception>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.TransposeDown(SparksMusic.Library.Note,System.Int32)">
+            <summary>
+            Transposes down a note.
+            </summary>
+            <param name="note">The note</param>
+            <param name="semitones">The semitones</param>
+            <returns>A transposed note.</returns>
         </member>
         <member name="M:SparksMusic.Library.Transposer.TransposeDown(System.Collections.Generic.List{SparksMusic.Library.Chord},System.Int32)">
             <summary>
@@ -281,6 +297,13 @@
             </summary>
             <param name="chordName">The chord name</param>
             <returns>True if the given name is a valid chord.</returns>
+        </member>
+        <member name="M:SparksMusic.Library.Transposer.Optimize(SparksMusic.Library.Chord)">
+            <summary>
+            Apply optmizations to the input chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <returns>The optmized chord.</returns>
         </member>
     </members>
 </doc>
