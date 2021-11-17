@@ -97,6 +97,151 @@
             <param name="chord">The chord</param>
             <returns>The transposed chord</returns>
         </member>
+        <member name="T:SparksMusic.Library.Accident">
+            <summary>
+            Accident enum
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Accident.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Accident.DoubleFlat">
+            <summary>
+            Double Flat
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Accident.Flat">
+            <summary>
+            Flat
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Accident.Sharp">
+            <summary>
+            Sharp
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Accident.DoubleSharp">
+            <summary>
+            Double Sharp
+            </summary>
+        </member>
+        <member name="T:SparksMusic.Library.NoteLetter">
+            <summary>
+            Note Letter enum
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.A">
+            <summary>
+            A
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.B">
+            <summary>
+            B
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.C">
+            <summary>
+            C
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.D">
+            <summary>
+            D
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.E">
+            <summary>
+            E
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.F">
+            <summary>
+            F
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.NoteLetter.G">
+            <summary>
+            G
+            </summary>
+        </member>
+        <member name="T:SparksMusic.Library.Tonality">
+            <summary>
+            Tonality enum
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Major">
+            <summary>
+            Major
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Minor">
+            <summary>
+            Minor
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Augmented">
+            <summary>
+            Augmented
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Diminished">
+            <summary>
+            Diminished
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.HalfDiminished">
+            <summary>
+            Half-Diminished
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Sus2">
+            <summary>
+            Suspended 2
+            </summary>
+        </member>
+        <member name="F:SparksMusic.Library.Tonality.Sus4">
+            <summary>
+            Suspended 4
+            </summary>
+        </member>
+        <member name="T:SparksMusic.Library.NotAChordException">
+            <summary>
+            NotAChord exception
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.NotAChordException.#ctor">
+            <summary>
+            NotAChord exception constructor
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.NotAChordException.#ctor(System.String)">
+            <summary>
+            NotAChord exception constructor
+            </summary>
+            <param name="message">The custom message of the exception</param>
+        </member>
+        <member name="M:SparksMusic.Library.NotAChordException.#ctor(System.String,System.Exception)">
+            <summary>
+            NotAChord exception constructor
+            </summary>
+            <param name="message">The custom message of the exception</param>
+            <param name="inner">The inner exception</param>
+        </member>
+        <member name="T:SparksMusic.Library.EnumExtensions">
+            <summary>
+            Enum extensions
+            </summary>
+        </member>
+        <member name="M:SparksMusic.Library.EnumExtensions.GetDescription(System.Enum)">
+            <summary>
+            Retrieve description field from specific enum.
+            </summary>
+            <param name="value">The enum value</param>
+            <returns>The enum description.</returns>
+        </member>
         <member name="T:SparksMusic.Library.Note">
             <summary>
             Note class
@@ -275,21 +420,6 @@
             </summary>
             <param name="note">The note</param>
             <returns>The chromatic correspondent note.</returns>
-        </member>
-        <member name="M:SparksMusic.Library.Transposer.GetInterval(System.Int32)">
-            <summary>
-            Get interval from semitones.
-            </summary>
-            <param name="semitones">The semitones</param>
-            <returns>The interval.</returns>
-        </member>
-        <member name="M:SparksMusic.Library.Transposer.GetInterval(SparksMusic.Library.Note,SparksMusic.Library.Note)">
-            <summary>
-            Get interval from a note to other.
-            </summary>
-            <param name="from">The start note</param>
-            <param name="to">The end note</param>
-            <returns>The interval.</returns>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
             <summary>
