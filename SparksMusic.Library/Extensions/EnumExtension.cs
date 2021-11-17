@@ -2,8 +2,16 @@
 
 namespace SparksMusic.Library
 {
+    /// <summary>
+    /// Enum extensions
+    /// </summary>
     public static class EnumExtensions
     {
+        /// <summary>
+        /// Retrieve description field from specific enum.
+        /// </summary>
+        /// <param name="value">The enum value</param>
+        /// <returns>The enum description.</returns>
         public static string GetDescription(this System.Enum value)
         {
             var enumType = value.GetType();

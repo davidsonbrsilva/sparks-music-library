@@ -148,5 +148,74 @@ namespace SparksMusic.Test
         {
             Assert.False(Transposer.IsChord(chordName));
         }
+
+        [Theory]
+        [InlineData(4, "A E    D  A")]
+        [InlineData(5, "A#m7 E(b5)    D°  A## G")]
+        [InlineData(4, "A#m7 E(b5)    H°  A## G")]
+        public void Should_GetAListOfChord_When_CallExtractChordsMethodPassingAStringWithValidChords(int expectedNumberOfChords, string chordsLine)
+        {
+            Assert.Equal(expectedNumberOfChords, Transposer.ExtractChords(chordsLine).Count);
+        }
+
+        [Fact]
+        public void Should_GetAListOfValidChord_When_CallGetValidChordsMethodPassingAChordsList()
+        {
+            var chords = new List<string>() { "Abm", "D(b5,9)", "H(4)", "E(4)" };
+            var validChords = Transposer.GetValidChords(chords);
+
+            Assert.Equal(3, validChords.Count);
+            Assert.Equal("Abm", validChords[0].ToString());
+            Assert.Equal("D(b5,9)", validChords[1].ToString());
+            Assert.Equal("E(4)", validChords[2].ToString());
+        }
+
+        [Theory]
+        [InlineData(0, NoteLetter.C, Accident.None, NoteLetter.C, Accident.None)]
+        [InlineData(1, NoteLetter.C, Accident.None, NoteLetter.C, Accident.Sharp)]
+        [InlineData(11, NoteLetter.C, Accident.None, NoteLetter.C, Accident.Flat)]
+        [InlineData(7, NoteLetter.C, Accident.Sharp, NoteLetter.A, Accident.Flat)]
+        public void Should_ReturnAmountOfSemitones_When_CallGetSemitonesMethodPassingTheOriginAndDestinyNotes(int expectedSemitones, NoteLetter originNoteLetter, Accident originAccident, NoteLetter destinyNoteLetter, Accident destinyAccident)
+        {
+            Assert.Equal(expectedSemitones, Transposer.GetSemitones(new Note(originNoteLetter, originAccident), new Note(destinyNoteLetter, destinyAccident)));
+        }
+
+        [Theory]
+        [InlineData(NoteLetter.C, Accident.None, NoteLetter.C, Accident.None)]
+        [InlineData(NoteLetter.C, Accident.None, NoteLetter.C, Accident.Flat)]
+        [InlineData(NoteLetter.C, Accident.Flat, NoteLetter.C, Accident.None)]
+        [InlineData(NoteLetter.C, Accident.Flat, NoteLetter.C, Accident.Flat)]
+        [InlineData(NoteLetter.C, Accident.None, NoteLetter.C, Accident.Sharp)]
+        [InlineData(NoteLetter.C, Accident.Sharp, NoteLetter.C, Accident.None)]
+        [InlineData(NoteLetter.C, Accident.Sharp, NoteLetter.C, Accident.Sharp)]
+        public void Should_ReturnFalse_When_CallHasDifferentChromaticPoleMethodPassingTwoNotesWithSameChromaticPoles(NoteLetter originNoteLetter, Accident originAccident, NoteLetter destinyNoteLetter, Accident destinyAccident)
+        {
+            Assert.False(Transposer.HasDifferentChromaticPole(new Note(originNoteLetter, originAccident), new Note(destinyNoteLetter, destinyAccident)));
+        }
+
+        [Theory]
+        [InlineData(NoteLetter.C, Accident.Flat, NoteLetter.C, Accident.Sharp)]
+        [InlineData(NoteLetter.C, Accident.Flat, NoteLetter.C, Accident.DoubleSharp)]
+        [InlineData(NoteLetter.C, Accident.Sharp, NoteLetter.C, Accident.Flat)]
+        [InlineData(NoteLetter.C, Accident.Sharp, NoteLetter.C, Accident.DoubleFlat)]
+        [InlineData(NoteLetter.C, Accident.DoubleFlat, NoteLetter.C, Accident.Sharp)]
+        [InlineData(NoteLetter.C, Accident.DoubleFlat, NoteLetter.C, Accident.DoubleSharp)]
+        [InlineData(NoteLetter.C, Accident.DoubleSharp, NoteLetter.C, Accident.Flat)]
+        [InlineData(NoteLetter.C, Accident.DoubleSharp, NoteLetter.C, Accident.DoubleFlat)]
+        public void Should_ReturnTrue_When_CallHasDifferentChromaticPoleMethodPassingTwoNotesWithDifferentChromaticPoles(NoteLetter originNoteLetter, Accident originAccident, NoteLetter destinyNoteLetter, Accident destinyAccident)
+        {
+            Assert.True(Transposer.HasDifferentChromaticPole(new Note(originNoteLetter, originAccident), new Note(destinyNoteLetter, destinyAccident)));
+        }
+
+        [Theory]
+        [InlineData("A#", NoteLetter.B, Accident.Flat)]
+        [InlineData("Bb", NoteLetter.A, Accident.Sharp)]
+        [InlineData("A", NoteLetter.A, Accident.None)]
+        [InlineData("B", NoteLetter.A, Accident.DoubleSharp)]
+        [InlineData("A", NoteLetter.B, Accident.DoubleFlat)]
+        public void Should_GetChromaticCorrespondent_When_CallGetChromaticCorrespondentMethodPassingANote(string expected, NoteLetter noteLetter, Accident accident)
+        {
+            Assert.Equal(expected, Transposer.GetChromaticCorrespondent(new Note(noteLetter, accident)).ToString());
+        }
     }
 }

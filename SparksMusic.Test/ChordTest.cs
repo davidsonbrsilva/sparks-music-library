@@ -124,7 +124,7 @@ namespace SparksMusic.Test
         public void Should_SayThatObjectsAreEquals_When_CreateDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
-            var tonality = Tonality.Diminuted;
+            var tonality = Tonality.Diminished;
             var complement = "";
             Note inversion = null;
 
@@ -157,7 +157,7 @@ namespace SparksMusic.Test
         public void Should_SayThatObjectsAreEquals_When_CreateHalfDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
-            var tonality = Tonality.HalfDiminuted;
+            var tonality = Tonality.HalfDiminished;
             var complement = "";
             Note inversion = null;
 

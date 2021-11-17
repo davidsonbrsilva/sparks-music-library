@@ -260,7 +260,7 @@ namespace SparksMusic.Library
         /// <returns>True if both have different chromatic poles.</returns>
         public static bool HasDifferentChromaticPole(Note note1, Note note2)
         {
-            return (note1.IsFlat && note2.IsSharp) || (note1.IsSharp && note2.IsFlat);
+            return (note1.IsFlatOrDoubleFlat && note2.IsSharpOrDoubleSharp) || (note1.IsSharpOrDoubleSharp && note2.IsFlatOrDoubleFlat);
         }
 
         /// <summary>
@@ -276,45 +276,6 @@ namespace SparksMusic.Library
             }
 
             return _chromaticCorrespondentDictionary[note];
-        }
-
-        /// <summary>
-        /// Get interval from semitones.
-        /// </summary>
-        /// <param name="semitones">The semitones</param>
-        /// <returns>The interval.</returns>
-        public static string GetInterval(int semitones)
-        {
-            semitones = NormalizeSemitones(semitones);
-
-            return semitones switch
-            {
-                0  => "pft8 or dim2",
-                1  => "min2 or aug8",
-                2  => "maj2 or dim3",
-                3  => "min3 or aug2",
-                4  => "maj3 or dim4",
-                5  => "pft4 or aug3",
-                6  => "aug4 or dim5",
-                7  => "pft5 or dim6",
-                8  => "min6 or aug5",
-                9  => "maj6 or dim7",
-                10  => "min7 or aug6",
-                11 => "maj7 or dim8",
-                _  => null
-            };
-        }
-
-        /// <summary>
-        /// Get interval from a note to other.
-        /// </summary>
-        /// <param name="from">The start note</param>
-        /// <param name="to">The end note</param>
-        /// <returns>The interval.</returns>
-        public static string GetInterval(Note from, Note to)
-        {
-            int semitones = GetSemitones(from, to);
-            return GetInterval(semitones);
         }
 
         /// <summary>
@@ -412,7 +373,7 @@ namespace SparksMusic.Library
             {
                 _ when note.IsFlatOrDoubleFlat   => _flatMap,
                 _ when note.IsSharpOrDoubleSharp => _sharpMap,
-                _                                 => map
+                _                                => map
             };
         }
 

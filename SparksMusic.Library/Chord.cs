@@ -184,13 +184,13 @@ namespace SparksMusic.Library
             {
                 return Tonality.Augmented;
             }
-            else if (diminutiveOrAugmentedValue == Tonality.Diminuted.GetDescription())
+            else if (diminutiveOrAugmentedValue == Tonality.Diminished.GetDescription())
             {
-                return Tonality.Diminuted;
+                return Tonality.Diminished;
             }
-            else if (diminutiveOrAugmentedValue == Tonality.HalfDiminuted.GetDescription())
+            else if (diminutiveOrAugmentedValue == Tonality.HalfDiminished.GetDescription())
             {
-                return Tonality.HalfDiminuted;
+                return Tonality.HalfDiminished;
             }
             else
             {
@@ -200,7 +200,7 @@ namespace SparksMusic.Library
 
         private static string GetComplement(Tonality tonality, string text)
         {
-            return tonality == Tonality.Augmented || tonality == Tonality.Diminuted || tonality == Tonality.HalfDiminuted ? "" : text;
+            return tonality == Tonality.Augmented || tonality == Tonality.Diminished || tonality == Tonality.HalfDiminished ? "" : text;
         }
 
         private static Note GetInversion(string noteLetterValue, string accidentValue)
