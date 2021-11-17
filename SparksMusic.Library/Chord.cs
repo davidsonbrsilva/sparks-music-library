@@ -74,7 +74,7 @@ namespace SparksMusic.Library
 
             chord = chord.Trim();
 
-            var regex = new Regex(GetChordPattern());
+            var regex = new Regex(GetChordPattern(), RegexOptions.Compiled);
             var match = regex.Match(chord);
 
             if (!match.Success || match.Value != chord)
