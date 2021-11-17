@@ -7,12 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksMusic.Library", "Spar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksMusic.Test", "SparksMusic.Test\SparksMusic.Test.csproj", "{38B40089-3F9F-4861-8D55-EB06FDCCBEE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparksMusic.ApplicationTest", "SparksMusic.ApplicationTest\SparksMusic.ApplicationTest.csproj", "{96A35876-BD27-49A8-94CA-1E77A04A9F30}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C91F87EA-3A4D-4C1A-A016-0636EA57EF7A}"
-	ProjectSection(SolutionItems) = preProject
-		.runsettings = .runsettings
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
