@@ -1,9 +1,6 @@
-﻿using System;
+﻿using SparksMusic.Library.Utils;
+using System;
 using System.Text.RegularExpressions;
-using SparksMusic.Library.Enum;
-using SparksMusic.Library.Exceptions;
-using SparksMusic.Library.Extensions;
-using SparksMusic.Library.Utils;
 
 namespace SparksMusic.Library
 {
@@ -33,16 +30,55 @@ namespace SparksMusic.Library
         public Note Inversion { get; }
 
         /// <summary>
-        /// Creates a chord object from a string. Considers only the first match.
+        /// True if chord is flat
+        /// </summary>
+        public bool IsFlat { get => Note.IsFlat; }
+
+        /// <summary>
+        /// True if chord is double flat
+        /// </summary>
+        public bool IsDoubleFlat { get => Note.IsDoubleFlat; }
+
+        /// <summary>
+        /// True if chord is flat or double flat
+        /// </summary>
+        public bool IsFlatOrDoubleFlat { get => IsFlat || IsDoubleFlat; }
+
+        /// <summary>
+        /// True if chord is sharp
+        /// </summary>
+        public bool IsSharp { get => Note.IsSharp; }
+
+        /// <summary>
+        /// True if chord is double sharp
+        /// </summary>
+        public bool IsDoubleSharp { get => Note.IsDoubleSharp; }
+
+        /// <summary>
+        /// True if chord is sharp or double sharp
+        /// </summary>
+        public bool IsSharpOrDoubleSharp { get => IsSharp || IsDoubleSharp; }
+
+        /// <summary>
+        /// Creates a chord object from a string.
         /// </summary>
         /// <param name="chord">The chord</param>
+        /// <exception cref="ArgumentNullException">Thrown when chord parameter is null.</exception>
+        /// <exception cref="NotAChordException">Thrown when chord parameter is not a valid chord.</exception>
         public Chord(string chord)
         {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
+            chord = chord.Trim();
+
             var regex = new Regex(GetChordPattern());
             var match = regex.Match(chord);
 
-            if (!match.Success)
-                throw new NotAChordException("The string provided does not match a valid chord.");
+            if (!match.Success || match.Value != chord)
+                throw new NotAChordException("The string provided does not match a valid chord");
 
             const int noteLetterGroup = 1;
             const int accidentGroup = 2;
@@ -106,8 +142,7 @@ namespace SparksMusic.Library
 
         public override string ToString()
         {
-            Console.WriteLine(Inversion);
-            string inversionString = Inversion is not null ? $"/{Inversion}" : "";
+            string inversionString = Inversion != null ? $"/{Inversion}" : "";
             return $"{Note}{Tonality.GetDescription()}{Complement}{inversionString}";
         }
 
@@ -128,7 +163,7 @@ namespace SparksMusic.Library
             const string tonality = @"(m|sus2|sus4)?";
             const string interval = @"(2|4|6|7M|7|9|11|13)?";
             const string incrementInterval = @"(b2|2|4|4#|b5|5|#5|6|7|7M|b9|9|11|#11|13)";
-            
+
             string note = $@"{noteLetter}{accident}";
             string complement = $@"(\+|°|{tonality}{interval}(\({incrementInterval}(,{incrementInterval})*\))?)";
             string inversion = $@"(\/{noteLetter}{accident})?";
@@ -149,13 +184,13 @@ namespace SparksMusic.Library
             {
                 return Tonality.Augmented;
             }
-            else if (diminutiveOrAugmentedValue == Tonality.Diminuted.GetDescription())
+            else if (diminutiveOrAugmentedValue == Tonality.Diminished.GetDescription())
             {
-                return Tonality.Diminuted;
+                return Tonality.Diminished;
             }
-            else if (diminutiveOrAugmentedValue == Tonality.HalfDiminuted.GetDescription())
+            else if (diminutiveOrAugmentedValue == Tonality.HalfDiminished.GetDescription())
             {
-                return Tonality.HalfDiminuted;
+                return Tonality.HalfDiminished;
             }
             else
             {
@@ -165,14 +200,7 @@ namespace SparksMusic.Library
 
         private static string GetComplement(Tonality tonality, string text)
         {
-            if (tonality == Tonality.Augmented || tonality == Tonality.Diminuted || tonality == Tonality.HalfDiminuted)
-            {
-                return "";
-            }
-            else
-            {
-                return text;
-            }
+            return tonality == Tonality.Augmented || tonality == Tonality.Diminished || tonality == Tonality.HalfDiminished ? "" : text;
         }
 
         private static Note GetInversion(string noteLetterValue, string accidentValue)

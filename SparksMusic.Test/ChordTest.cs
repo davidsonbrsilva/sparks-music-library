@@ -1,6 +1,5 @@
 using SparksMusic.Library;
-using SparksMusic.Library.Enum;
-using SparksMusic.Library.Exceptions;
+using System;
 using Xunit;
 
 namespace SparksMusic.Test
@@ -18,9 +17,9 @@ namespace SparksMusic.Test
             var inversionAccident = Accident.Sharp;
 
             var chord1 = new Chord(
-                new Note(noteLetter, accident), 
-                tonality, 
-                complement, 
+                new Note(noteLetter, accident),
+                tonality,
+                complement,
                 new Note(inversionNoteLetter, inversionAccident));
 
             var chord2 = new Chord(
@@ -61,7 +60,15 @@ namespace SparksMusic.Test
         [Fact]
         public void Should_ThrowsNotAChordException_When_CreateChordObjectWithInvalidString()
         {
+            Assert.Throws<NotAChordException>(() => new Chord(""));
             Assert.Throws<NotAChordException>(() => new Chord("H"));
+            Assert.Throws<NotAChordException>(() => new Chord("A#b"));
+        }
+
+        [Fact]
+        public void Should_ThrowsArgumentNullException_When_CreateChordObjectWithNullString()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Chord(null));
         }
 
         [Fact]
@@ -117,7 +124,7 @@ namespace SparksMusic.Test
         public void Should_SayThatObjectsAreEquals_When_CreateDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
-            var tonality = Tonality.Diminuted;
+            var tonality = Tonality.Diminished;
             var complement = "";
             Note inversion = null;
 
@@ -150,7 +157,7 @@ namespace SparksMusic.Test
         public void Should_SayThatObjectsAreEquals_When_CreateHalfDiminutedChordObjectWithValidString()
         {
             var note = new Note(NoteLetter.A, Accident.None);
-            var tonality = Tonality.HalfDiminuted;
+            var tonality = Tonality.HalfDiminished;
             var complement = "";
             Note inversion = null;
 

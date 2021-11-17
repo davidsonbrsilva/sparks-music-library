@@ -1,5 +1,4 @@
 ﻿using SparksMusic.Library;
-using SparksMusic.Library.Internal;
 using Xunit;
 
 namespace SparksMusic.Test
@@ -9,7 +8,7 @@ namespace SparksMusic.Test
         [Fact]
         public void Should_SayThatObjectNameIsEqualToExpected_When_CreateANodeObject()
         {
-            var node = new Node(new Note(Library.Enum.NoteLetter.A, Library.Enum.Accident.DoubleFlat));
+            var node = new Node(new Note(NoteLetter.A, Accident.DoubleFlat));
             Assert.Equal("Abb", node.ToString());
         }
     }

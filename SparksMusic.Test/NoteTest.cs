@@ -1,5 +1,4 @@
 using SparksMusic.Library;
-using SparksMusic.Library.Enum;
 using Xunit;
 
 namespace SparksMusic.Test
