@@ -2,6 +2,8 @@ using SparksMusic.Library;
 using System;
 using Xunit;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace SparksMusic.Test
 {
     public class ChordTest
