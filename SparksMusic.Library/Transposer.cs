@@ -233,7 +233,8 @@ namespace SparksMusic.Library
             var (polarizedOrigin, polarizedDestiny) = MatchChromaticPole(from, to);
 
             var map = GetCorrectMap(_sharpMap, polarizedOrigin);
-            map = GetCorrectMap(_sharpMap, polarizedDestiny);
+            map = GetCorrectMap(map, polarizedDestiny);
+
             var headNode = FindHeadNodeFromNote(map, polarizedOrigin);
             int semitones = 0;
 
