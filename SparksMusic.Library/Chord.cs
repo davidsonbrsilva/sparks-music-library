@@ -165,7 +165,7 @@ namespace SparksMusic.Library
             const string incrementInterval = @"(b2|2|4|4#|b5|5|#5|6|7|7M|b9|9|11|#11|13)";
 
             string note = $@"{noteLetter}{accident}";
-            string complement = $@"(\+|º|{tonality}{interval}(\({incrementInterval}(,{incrementInterval})*\))?)";
+            string complement = $@"(\+|\u00B0|{tonality}{interval}(\({incrementInterval}(,{incrementInterval})*\))?)";
             string inversion = $@"(\/{noteLetter}{accident})?";
 
             return $"{note}{complement}{inversion}";

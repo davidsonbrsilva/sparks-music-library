@@ -120,7 +120,7 @@ namespace SparksMusic.Test
         [InlineData("A#m7(b5,11)")]
         [InlineData("A#m(b5,11,13)/G#")]
         [InlineData("A+")]
-        [InlineData("A°")]
+        [InlineData("A\u00B0")]
         public void Should_ReturnTrue_When_CallIsValidMethodPassingAValidChordName(string chordName)
         {
             Assert.True(Transposer.IsChord(chordName));
@@ -135,8 +135,8 @@ namespace SparksMusic.Test
         [InlineData("A#b")]
         [InlineData("Ab#")]
         [InlineData("AbM")]
-        [InlineData("A+°")]
-        [InlineData("A°+")]
+        [InlineData("A+\u00B0")]
+        [InlineData("A\u00B0+")]
         [InlineData("A(b5")]
         [InlineData("Ab5)")]
         [InlineData("A+(b5)")]
@@ -151,8 +151,8 @@ namespace SparksMusic.Test
 
         [Theory]
         [InlineData(4, "A E    D  A")]
-        [InlineData(5, "A#m7 E(b5)    D°  A## G")]
-        [InlineData(4, "A#m7 E(b5)    H°  A## G")]
+        [InlineData(5, "A#m7 E(b5)    D\u00B0  A## G")]
+        [InlineData(4, "A#m7 E(b5)    H\u00B0  A## G")]
         public void Should_GetAListOfChord_When_CallExtractChordsMethodPassingAStringWithValidChords(int expectedNumberOfChords, string chordsLine)
         {
             Assert.Equal(expectedNumberOfChords, Transposer.ExtractChords(chordsLine).Count);

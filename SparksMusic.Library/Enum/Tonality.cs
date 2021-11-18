@@ -28,7 +28,7 @@ namespace SparksMusic.Library
         /// <summary>
         /// Diminished
         /// </summary>
-        [Description("°")]
+        [Description("\u00B0")]
         Diminished,
 
         /// <summary>

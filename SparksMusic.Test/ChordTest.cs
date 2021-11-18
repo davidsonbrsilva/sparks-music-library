@@ -130,13 +130,13 @@ namespace SparksMusic.Test
             var complement = "";
             Note inversion = null;
 
-            var chord = new Chord("Aº");
+            var chord = new Chord("A\u00B0");
 
             Assert.Equal(note, chord.Note);
             Assert.Equal(tonality, chord.Tonality);
             Assert.Equal(complement, chord.Complement);
             Assert.Equal(inversion, chord.Inversion);
-            Assert.Equal("Aº", chord.ToString());
+            Assert.Equal("A\u00B0", chord.ToString());
         }
 
         [Fact]
@@ -147,7 +147,7 @@ namespace SparksMusic.Test
             var complement = "7(11)";
             var inversion = new Note(NoteLetter.D, Accident.Sharp);
 
-            var chord = new Chord("Aº");
+            var chord = new Chord("A\u00B0");
 
             Assert.NotEqual(note, chord.Note);
             Assert.NotEqual(tonality, chord.Tonality);
