@@ -1,6 +1,7 @@
 # Sparks Music Library <!-- omit in toc -->
 
 ![Workflow Status](https://img.shields.io/github/workflow/status/davidsonbrsilva/sparks-music-library/dotnet)
+![License](https://img.shields.io/github/license/davidsonbrsilva/sparks-music-library)
 ![Code Size](https://img.shields.io/github/languages/code-size/davidsonbrsilva/sparks-music-library)
 
 **Sparks Music Library** é uma biblioteca de classes construída em .Net 5 para reconhecimento, extração e transposição de acordes musicais.
@@ -20,7 +21,8 @@ Ambos `Bb` e `A#` são chamados de acordes enarmônicos (produzem o mesmo som, m
   - [Extração](#extração)
   - [Reconhecimento](#reconhecimento)
   - [Otimização](#otimização)
-- [Autor](#autor)
+- [Contato](#contato)
+- [Licença](#licença)
 
 ## Requisitos
 
@@ -60,6 +62,12 @@ dotnet test
 ```
 
 ## Guia rápido de uso
+
+Importe a biblioteca por meio de `SparksMusic.Library`.
+
+```
+using SparksMusic.Library;
+```
 
 ### Transposição
 
@@ -157,6 +165,10 @@ Chord optimized = Transposer.Optimize("A#/Db");
 Console.WriteLine(optimized); // A#/C#
 ```
 
-## Autor
+## Contato
 
 Caso necessite, entre em contato com <davidsonbruno@outlook.com>.
+
+## Licença
+
+[MIT](LICENSE) Copyright (c) 2021 Davidson Bruno
