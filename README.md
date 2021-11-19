@@ -1,4 +1,4 @@
-# Sparks Music Library
+# Sparks Music Library <!-- omit in toc -->
 
 ![Workflow Status](https://img.shields.io/github/workflow/status/davidsonbrsilva/sparks-music-library/dotnet)
 ![Code Size](https://img.shields.io/github/languages/code-size/davidsonbrsilva/sparks-music-library)
@@ -8,6 +8,19 @@
 É muito comum encontrarmos soluções de transposição que reduzem o mapeamento de notas aos doze sons possíveis de se reproduzir na escala ocidental, fazendo com que ela contenha sustenidos ou bemóis, mas não ambos. Isso pode limitar o desejo do usuário de enxergar a enarmonia equivalente à gerada pela transposição. Por exemplo, o resultado desejado pode ser o campo harmônico de `Bb`, mas o que se obtém é o campo harmônico de `A#`.
 
 Ambos `Bb` e `A#` são chamados de acordes enarmônicos (produzem o mesmo som, mas têm nomes diferentes) e podem desempenhar funções diferentes a depender do contexto. Por essa razão, o resultado simplificado dessas soluções de transposição pode surtir em um resultado não desejado. É aí que Sparks Music Library encontra espaço, procurando respeitar o papel desempenhado pelo acorde ao considerar resultados em bemol, sustenido, dobrado bemol e dobrado sustenido.
+
+## Tabela de conteúdo <!-- omit in toc -->
+
+- [Requisitos](#requisitos)
+- [Instalação](#instalação)
+- [Testes](#testes)
+- [Guia rápido de uso](#guia-rápido-de-uso)
+  - [Transposição](#transposição)
+  - [Obtenção de correspondente cromático](#obtenção-de-correspondente-cromático)
+  - [Extração](#extração)
+  - [Reconhecimento](#reconhecimento)
+  - [Otimização](#otimização)
+- [Autor](#autor)
 
 ## Requisitos
 
@@ -78,7 +91,7 @@ Note correspondent = Transposer.GetChromaticCorrespondent(note);
 Console.WriteLine(correspondent); // Bb
 ```
 
-Acordes sem acidentes são retornados como iguais à entrada. Por exemplo `A` é retornado como `A`.
+Notas sem acidentes são retornadas como iguais à entrada. Por exemplo `A` é retornado como `A`.
 
 ```csharp
 Note note = new Note(NoteLetter.A, Accident.None);
