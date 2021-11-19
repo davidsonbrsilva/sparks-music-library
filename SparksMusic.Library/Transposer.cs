@@ -302,6 +302,19 @@ namespace SparksMusic.Library
         /// </summary>
         /// <param name="chord">The chord</param>
         /// <returns>The optmized chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
+        /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
+        public static Chord Optimize(string chord)
+        {
+            return OptimizeInversion(new Chord(chord));
+        }
+
+        /// <summary>
+        /// Apply optmizations to the input chord.
+        /// </summary>
+        /// <param name="chord">The chord</param>
+        /// <returns>The optmized chord.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
         public static Chord Optimize(Chord chord)
         {
             return OptimizeInversion(chord);

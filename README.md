@@ -46,9 +46,103 @@ Para os testes, execute o comando:
 dotnet test
 ```
 
-## Como usar
+## Guia rápido de uso
 
-Em construção...
+### Transposição
+
+Use o método `TransposeUp` se quiser transpor acordes para cima e `TransposeDown` se quiser transpor acordes para baixo. Ambos recebem como parâmetros a cadeia de caracteres do acorde que se deseja transpor e a quantidade de semitons para a transposição.
+
+Transpor para cima
+
+```csharp
+Chord transposed = Transposer.TransposeUp("A", 2);
+Console.WriteLine(transposed); // B
+```
+
+Transpor para baixo
+
+```csharp
+Chord transposed = Transposer.TransposeDown("A", 2);
+Console.WriteLine(transposed); // G
+```
+
+Outras sobrecargas dos métodos suportam nota, acorde e lista de acordes como parâmetro. Veja detalhes [aqui]().
+
+### Obtenção de correspondente cromático
+
+Use o método `GetChromaticCorrespondent` para obter o equivalente cromático da nota informada. Por exemplo, `A#` é retornada como `Bb` e vice-versa.
+
+```csharp
+Note note = new Note(NoteLetter.A, Accident.Sharp);
+Note correspondent = Transposer.GetChromaticCorrespondent(note);
+Console.WriteLine(correspondent); // Bb
+```
+
+Acordes sem acidentes são retornados como iguais à entrada. Por exemplo `A` é retornado como `A`.
+
+```csharp
+Note note = new Note(NoteLetter.A, Accident.None);
+Note correspondent = Transposer.GetChromaticCorrespondent(note);
+Console.WriteLine(correspondent); // A
+```
+
+### Extração
+
+Use o método `ExtractChords` se quiser extrair acordes válidos de uma cadeia de caracteres.
+
+```csharp
+Chord transposed = Transposer.ExtractChords("A", 2);
+Console.WriteLine(transposed) // G
+```
+
+### Reconhecimento
+
+Use o método `IsChord` se quiser verificar se a cadeia de caracteres fornecida corresponde a um acorde válido.
+
+```csharp
+Console.WriteLine(Transposer.IsChord("A")) // true
+Console.WriteLine(Transposer.IsChord("H")) // false
+Console.WriteLine(Transposer.IsChord("A#m7")) // true
+Console.WriteLine(Transposer.IsChord("A#°")) // false
+```
+
+Use o método `GetValidChords` se quiser obter uma lista de objetos de acordes válidos a partir de uma lista de cadeias de caracteres.
+
+```csharp
+List<string> chordsList = { "A", "H", "A#m7", "A#º" };
+List<Chord> validChords = Transposer.GetValidChords(chordsList);
+
+foreach (Chord chord in validChords)
+{
+    Console.WriteLine(chord);
+}
+
+// Saída:
+// A
+// A#m7
+```
+
+Use o método `HasDifferentChromaticPole` se quiser verificar se duas notas têm polo cromático diferentes. Por exemplo, duas notas `A#` e `Bb` retornam `false` pelo método, pois o primeiro pertence ao polo cromático sustenido e o segundo bemol.
+
+```csharp
+Note note1 = new Note(NoteLetter.A, Accident.Sharp);
+Note note2 = new Note(NoteLetter.B, Accident.Flat);
+Note note3 = new Note(NoteLetter.C, Accident.None);
+Note note3 = new Note(NoteLetter.C, Accident.Sharp);
+
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note2)); // false
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note3)); // true
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note4)); // true
+```
+
+### Otimização
+
+Use o método `Optimize` se quiser aplicar otimizações ao acorde. Atualmente, o método realiza otimização caso a nota e a inversão do acorde sejam de polos cromáticos diferentes e retorna o novo acorde otimizado (por exemplo, `A#/Db` se transforma em `A#/C#`).
+
+```csharp
+Chord optimized = Transposer.Optimize("A#/Db");
+Console.WriteLine(optimized); // A#/C#
+```
 
 ## Autor
 
