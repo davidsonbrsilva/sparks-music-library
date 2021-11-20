@@ -1,8 +1,8 @@
 # Sparks Music Library <!-- omit in toc -->
 
 ![Workflow Status](https://img.shields.io/github/workflow/status/davidsonbrsilva/sparks-music-library/dotnet)
-![License](https://img.shields.io/github/license/davidsonbrsilva/sparks-music-library)
 ![Code Size](https://img.shields.io/github/languages/code-size/davidsonbrsilva/sparks-music-library)
+![License](https://img.shields.io/github/license/davidsonbrsilva/sparks-music-library)
 
 **Sparks Music Library** é uma biblioteca de classes construída em .Net 5 para reconhecimento, extração e transposição de acordes musicais.
 
@@ -63,10 +63,25 @@ dotnet test
 
 ## Guia rápido de uso
 
-Importe a biblioteca por meio de `SparksMusic.Library`.
+Para começar, importe a biblioteca `SparksMusic.Library` para o seu projeto:
 
 ```
 using SparksMusic.Library;
+```
+
+Os métodos de SparksMusic Library podem ser separados em dois grupos: métodos _non-try_ e _try_. Métodos _non-try_ lançam exceções nas operações e devem ser capturados por instruções `try-catch`. Métodos _try_ não lançam exceções e retornam um booleano para dizer se a operação foi bem sucedida. Métodos _try_ são iniciados por _Try_ (por exemplo, `TryTransposeUp`).
+
+Os exemplos deste guia rápido utilizam métodos _non-try_. No entanto, para fins de simplicidade, considere que todas as chamadas a seguir estão envolvidas em instruções `try-catch`:
+
+```csharp
+try
+{
+    // SparksMusic Library operations here
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}
 ```
 
 ### Transposição
