@@ -420,6 +420,7 @@
             </summary>
             <param name="note">The note</param>
             <returns>The chromatic correspondent note.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when note object is null.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
             <summary>
@@ -428,12 +429,22 @@
             <param name="chordName">The chord name</param>
             <returns>True if the given name is a valid chord.</returns>
         </member>
+        <member name="M:SparksMusic.Library.Transposer.Optimize(System.String)">
+            <summary>
+            Apply optmizations to the input chord.
+            </summary>
+            <param name="chord">The chord</param>
+            <returns>The optmized chord.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when chords object is null.</exception>
+            <exception cref="T:SparksMusic.Library.NotAChordException">Thrown when input is not a valid chord.</exception>
+        </member>
         <member name="M:SparksMusic.Library.Transposer.Optimize(SparksMusic.Library.Chord)">
             <summary>
             Apply optmizations to the input chord.
             </summary>
             <param name="chord">The chord</param>
             <returns>The optmized chord.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when chords object is null.</exception>
         </member>
     </members>
 </doc>
