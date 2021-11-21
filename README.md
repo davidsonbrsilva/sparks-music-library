@@ -127,8 +127,19 @@ Console.WriteLine(correspondent); // A
 Use o método `ExtractChords` se quiser extrair acordes válidos de uma cadeia de caracteres.
 
 ```csharp
-Chord transposed = Transposer.ExtractChords("A", 2);
-Console.WriteLine(transposed) // G
+// This method extract the valid chords in the provided input text.
+// In this case, only G#°, F#m7 and B/A are valid chords.
+List<Chord> extractedChords = Transposer.ExtractChords("My chord sequence is G#°  F#m7  Fº+    F#m7/A###     B/A");
+
+foreach (var chord in extractedChords)
+{
+    Console.WriteLine(chord);
+}
+
+// Output:
+// G#°
+// F#m7
+// B/A
 ```
 
 ### Reconhecimento
@@ -136,16 +147,16 @@ Console.WriteLine(transposed) // G
 Use o método `IsChord` se quiser verificar se a cadeia de caracteres fornecida corresponde a um acorde válido.
 
 ```csharp
-Console.WriteLine(Transposer.IsChord("A")) // true
-Console.WriteLine(Transposer.IsChord("H")) // false
-Console.WriteLine(Transposer.IsChord("A#m7")) // true
-Console.WriteLine(Transposer.IsChord("A#°")) // false
+Console.WriteLine(Transposer.IsChord("A")); // True
+Console.WriteLine(Transposer.IsChord("H")); // False
+Console.WriteLine(Transposer.IsChord("A#m7")); // True
+Console.WriteLine(Transposer.IsChord("A+°")); // False
 ```
 
 Use o método `GetValidChords` se quiser obter uma lista de objetos de acordes válidos a partir de uma lista de cadeias de caracteres.
 
 ```csharp
-List<string> chordsList = { "A", "H", "A#m7", "A#º" };
+List<string> chordsList = new List<string>{ "A", "H", "A#m7", "A#º" };
 List<Chord> validChords = Transposer.GetValidChords(chordsList);
 
 foreach (Chord chord in validChords)
@@ -164,11 +175,11 @@ Use o método `HasDifferentChromaticPole` se quiser verificar se duas notas têm
 Note note1 = new Note(NoteLetter.A, Accident.Sharp);
 Note note2 = new Note(NoteLetter.B, Accident.Flat);
 Note note3 = new Note(NoteLetter.C, Accident.None);
-Note note3 = new Note(NoteLetter.C, Accident.Sharp);
+Note note4 = new Note(NoteLetter.C, Accident.Sharp);
 
-Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note2)); // false
-Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note3)); // true
-Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note4)); // true
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note2)); // True
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note3)); // False
+Console.WriteLine(Transposer.HasDifferentChromaticPole(note1, note4)); // False
 ```
 
 ### Otimização
