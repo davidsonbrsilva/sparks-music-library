@@ -420,6 +420,7 @@
             </summary>
             <param name="note">The note</param>
             <returns>The chromatic correspondent note.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when note object is null.</exception>
         </member>
         <member name="M:SparksMusic.Library.Transposer.IsChord(System.String)">
             <summary>

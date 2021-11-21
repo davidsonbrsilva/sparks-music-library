@@ -73,6 +73,7 @@ namespace SparksMusic.Test
         [InlineData("A#/Db", 2, "G#/B")]
         [InlineData("A#/Bb", 0, "A#")]
         [InlineData("A#/Bb", 2, "G#")]
+        [InlineData("A##/Dbb", 2, "A/Bb")]
         public void Should_TransposeChordDown_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chord, int semitones, string expected)
         {
             Assert.Equal(expected, Transposer.TransposeDown(chord, semitones).ToString());
@@ -216,6 +217,47 @@ namespace SparksMusic.Test
         public void Should_GetChromaticCorrespondent_When_CallGetChromaticCorrespondentMethodPassingANote(string expected, NoteLetter noteLetter, Accident accident)
         {
             Assert.Equal(expected, Transposer.GetChromaticCorrespondent(new Note(noteLetter, accident)).ToString());
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentNullException_When_CallGetChromaticCorrespondentMethodPassingANullNote()
+        {
+            Assert.Throws<ArgumentNullException>(() => Transposer.GetChromaticCorrespondent(null));
+        }
+
+        [Theory]
+        [InlineData("A", "A")]
+        [InlineData("A#", "A#")]
+        [InlineData("Ab", "Ab")]
+        [InlineData("A#/Db", "A#/C#")]
+        [InlineData("Ab/C#", "Ab/Db")]
+        [InlineData("A/Ebb", "A/D")]
+        [InlineData("A/D##", "A/E")]
+        [InlineData("A#/Ebb", "A#/D")]
+        [InlineData("A#/D##", "A#/E")]
+        [InlineData("A##/Ebb", "B/D")]
+        [InlineData("A##/D##", "B/E")]
+        [InlineData("Abb/Ebb", "G/D")]
+        [InlineData("Abb/Dbb", "G/C")]
+        public void Should_GetOptimizedChord_When_CallOptimizeMethodPassingAChord(string chord, string expected)
+        {
+            Assert.Equal(expected, Transposer.Optimize(chord).ToString());
+            Assert.Equal(expected, Transposer.Optimize(new Chord(chord)).ToString());
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("H")]
+        public void Should_ThrowArgumentNullException_When_CallOptimizeMethod_PassingAInvalidChordString(string chord)
+        {
+            Assert.Throws<NotAChordException>(() => Transposer.Optimize(chord));
+        }
+
+        [Fact]
+        public void Should_ThrowArgumentNullException_When_CallOptimizeMethod_PassingANullChord()
+        {
+            Assert.Throws<ArgumentNullException>(() => Transposer.Optimize((string)null));
+            Assert.Throws<ArgumentNullException>(() => Transposer.Optimize((Chord)null));
         }
     }
 }

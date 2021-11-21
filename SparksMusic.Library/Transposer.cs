@@ -270,8 +270,14 @@ namespace SparksMusic.Library
         /// </summary>
         /// <param name="note">The note</param>
         /// <returns>The chromatic correspondent note.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when note object is null.</exception>
         public static Note GetChromaticCorrespondent(Note note)
         {
+            if (note is null)
+            {
+                throw new ArgumentNullException(nameof(note));
+            }
+
             if (note.Accident == Accident.None)
             {
                 return note;
@@ -306,7 +312,7 @@ namespace SparksMusic.Library
         /// <exception cref="NotAChordException">Thrown when input is not a valid chord.</exception>
         public static Chord Optimize(string chord)
         {
-            return OptimizeInversion(new Chord(chord));
+            return Optimize(new Chord(chord));
         }
 
         /// <summary>
@@ -317,7 +323,14 @@ namespace SparksMusic.Library
         /// <exception cref="ArgumentNullException">Thrown when chords object is null.</exception>
         public static Chord Optimize(Chord chord)
         {
-            return OptimizeInversion(chord);
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
+            Chord optimizedChord = OptimizeNote(chord);
+            optimizedChord = OptimizeInversion(optimizedChord);
+            return optimizedChord;
         }
         #endregion
 
@@ -329,7 +342,7 @@ namespace SparksMusic.Library
                 throw new ArgumentNullException(nameof(chord));
             }
 
-            chord = Optimize(chord);
+            chord = OptimizeInversion(chord);
             semitones = NormalizeSemitones(semitones);
 
             if (semitones == 0)
@@ -348,20 +361,53 @@ namespace SparksMusic.Library
             return new Chord(transposedNote, chord.Tonality, chord.Complement, transposedInversion);
         }
 
+        private static Chord OptimizeNote(Chord chord)
+        {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
+            Note note = chord.Note;
+
+            if (note != null)
+            {
+                // A##/D becomes B/D, for example
+                if (note.IsDoubleSharp || note.IsDoubleFlat)
+                {
+                    note = GetChromaticCorrespondent(note);
+                }
+            }
+
+            return new Chord(note, chord.Tonality, chord.Complement, chord.Inversion);
+        }
+
         private static Chord OptimizeInversion(Chord chord)
         {
+            if (chord is null)
+            {
+                throw new ArgumentNullException(nameof(chord));
+            }
+
             Note note = chord.Note;
             Note inversion = chord.Inversion;
 
-            if (chord is not null)
+            if (inversion != null)
             {
-                if (note is not null && inversion is not null)
+                if (inversion.IsDoubleSharp || inversion.IsDoubleFlat)
                 {
-                    if (HasDifferentChromaticPole(chord.Note, chord.Inversion))
+                    inversion = GetChromaticCorrespondent(inversion);
+                }
+
+                if (note != null)
+                {
+                    // A#/Db becommes A#/C#, for example
+                    if (HasDifferentChromaticPole(note, inversion))
                     {
-                        inversion = GetChromaticCorrespondent(chord.Inversion);
+                        inversion = GetChromaticCorrespondent(inversion);
                     }
 
+                    // A#/A# becommes A#, for example
                     if (note.Equals(inversion))
                     {
                         inversion = null;
