@@ -69,9 +69,7 @@ Para começar, importe a biblioteca `SparksMusic.Library` para o seu projeto:
 using SparksMusic.Library;
 ```
 
-Os métodos de SparksMusic Library podem ser separados em dois grupos: métodos _non-try_ e _try_. Métodos _non-try_ lançam exceções nas operações e devem ser capturados por instruções `try-catch`. Métodos _try_ não lançam exceções e retornam um booleano para dizer se a operação foi bem sucedida. Métodos _try_ são iniciados por _Try_ (por exemplo, `TryTransposeUp`).
-
-Os exemplos deste guia rápido utilizam métodos _non-try_. No entanto, para fins de simplicidade, considere que todas as chamadas a seguir estão envolvidas em instruções `try-catch`:
+A maioria dos métodos de SparksMusic Library lançam exceções nas operações e devem ser capturados por instruções `try-catch`. Para fins de simplicidade, considere que todas as chamadas a seguir estão envolvidas em instruções `try-catch`:
 
 ```csharp
 try
