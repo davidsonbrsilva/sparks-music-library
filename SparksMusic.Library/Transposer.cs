@@ -12,6 +12,7 @@ namespace SparksMusic.Library
         private static readonly Node _flatMap = BuildFlatMap();
         private static readonly Node _sharpMap = BuildSharpMap();
         private static readonly Dictionary<Note, Note> _chromaticCorrespondentDictionary = BuildChromaticCorrespondentDictionary();
+        private static readonly object _lock = new object();
 
         private const int SemitonesOnTheScale = 12;
 
@@ -337,28 +338,31 @@ namespace SparksMusic.Library
         #region Private Methods
         private static Chord Transpose(Chord chord, int semitones, TransposeMethod transposeMethod)
         {
-            if (chord is null)
+            lock (_lock)
             {
-                throw new ArgumentNullException(nameof(chord));
+                if (chord is null)
+                {
+                    throw new ArgumentNullException(nameof(chord));
+                }
+
+                chord = OptimizeInversion(chord);
+                semitones = NormalizeSemitones(semitones);
+
+                if (semitones == 0)
+                {
+                    return chord;
+                }
+
+                var transposedNote = transposeMethod(chord.Note, semitones);
+                Note transposedInversion = null;
+
+                if (chord.Inversion != null)
+                {
+                    transposedInversion = transposeMethod(chord.Inversion, semitones);
+                }
+
+                return new Chord(transposedNote, chord.Tonality, chord.Complement, transposedInversion);
             }
-
-            chord = OptimizeInversion(chord);
-            semitones = NormalizeSemitones(semitones);
-
-            if (semitones == 0)
-            {
-                return chord;
-            }
-
-            var transposedNote = transposeMethod(chord.Note, semitones);
-            Note transposedInversion = null;
-
-            if (chord.Inversion != null)
-            {
-                transposedInversion = transposeMethod(chord.Inversion, semitones);
-            }
-
-            return new Chord(transposedNote, chord.Tonality, chord.Complement, transposedInversion);
         }
 
         private static Chord OptimizeNote(Chord chord)
