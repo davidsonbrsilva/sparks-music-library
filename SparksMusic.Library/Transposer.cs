@@ -215,9 +215,7 @@ public static class Transposer
         foreach (var chord in chords)
         {
             if (IsChord(chord))
-            {
                 validChords.Add(new Chord(chord));
-            }
         }
 
         return validChords;

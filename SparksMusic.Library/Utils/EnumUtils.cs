@@ -14,13 +14,13 @@ namespace SparksMusic.Library.Utils
                 var attributes = (DescriptionAttribute[])field.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
                 if (attributes != null && attributes.Length > 0 && attributes[0].Description == input)
-                    return (T)System.Enum.Parse(typeof(T), field.Name);
+                    return (T)Enum.Parse(typeof(T), field.Name);
             }
 
             foreach (var field in fields)
             {
                 if (field.Name == input)
-                    return (T)System.Enum.Parse(typeof(T), field.Name);
+                    return (T)Enum.Parse(typeof(T), field.Name);
             }
 
             throw new Exception("Not found");

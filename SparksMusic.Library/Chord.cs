@@ -7,7 +7,7 @@ namespace SparksMusic.Library;
 /// <summary>
 /// Chord class
 /// </summary>
-public class Chord : IEquatable<Chord>
+public partial class Chord : IEquatable<Chord>
 {
     /// <summary>
     /// Chord note
@@ -68,31 +68,27 @@ public class Chord : IEquatable<Chord>
     public Chord(string chord)
     {
         if (chord is null)
-        {
             throw new ArgumentNullException(nameof(chord));
-        }
 
         chord = chord.Trim();
 
-        var regex = new Regex(GetChordPattern(), RegexOptions.Compiled);
+        var regex = ChordRegex();
         var match = regex.Match(chord);
 
         if (!match.Success || match.Value != chord)
             throw new NotAChordException("The string provided does not match a valid chord");
 
-        const int noteLetterGroup = 1;
-        const int accidentGroup = 2;
-        const int diminutiveOrAugmentedGroup = 3;
-        const int tonalityGroup = 4;
-        const int firstComplementGroup = 5;
-        const int secondComplementGroup = 6;
-        const int inversionLetterGroup = 11;
-        const int inversionAccidentGroup = 12;
+        const string key = "key";
+        const string chromatism = "chromatism";
+        const string complement = "complement";
+        const string tonality = "tonality";
+        const string inversionKey = "inversionKey";
+        const string inversionChromatism = "inversionChromatism";
 
-        Note = GetNote(match.Groups[noteLetterGroup].Value, match.Groups[accidentGroup].Value);
-        Tonality = GetTonality(match.Groups[diminutiveOrAugmentedGroup].Value, match.Groups[tonalityGroup].Value);
-        Complement = GetComplement(Tonality, $"{match.Groups[firstComplementGroup].Value}{match.Groups[secondComplementGroup].Value}");
-        Inversion = GetInversion(match.Groups[inversionLetterGroup].Value, match.Groups[inversionAccidentGroup].Value);
+        Note = GetNote(match.Groups[key].Value, match.Groups[chromatism].Value);
+        Tonality = GetTonality(match.Groups[complement].Value, match.Groups[tonality].Value);
+        Complement = GetComplement(Tonality, match.Groups[complement].Value);
+        Inversion = GetInversion(match.Groups[inversionKey].Value, match.Groups[inversionChromatism].Value);
     }
 
     /// <summary>
@@ -146,30 +142,9 @@ public class Chord : IEquatable<Chord>
         return $"{Note}{Tonality.GetDescription()}{Complement}{inversionString}";
     }
 
-    public override bool Equals(object obj)
-    {
-        return base.Equals(obj as Chord);
-    }
+    public override bool Equals(object obj) => base.Equals(obj as Chord);
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Note, Tonality, Complement, Inversion);
-    }
-
-    private static string GetChordPattern()
-    {
-        const string noteLetter = @"([A-G]{1})";
-        const string accident = @"(##?|bb?)?";
-        const string tonality = @"(m|sus2|sus4)?";
-        const string interval = @"(2|4|6|7M|7|9|11|13)?";
-        const string incrementInterval = @"(b2|2|4|4#|b5|5|#5|6|7|7M|b9|9|11|#11|13)";
-
-        string note = $@"{noteLetter}{accident}";
-        string complement = $@"(\+|\u00B0|{tonality}{interval}(\({incrementInterval}(,{incrementInterval})*\))?)";
-        string inversion = $@"(\/{noteLetter}{accident})?";
-
-        return $"{note}{complement}{inversion}";
-    }
+    public override int GetHashCode() => HashCode.Combine(Note, Tonality, Complement, Inversion);
 
     private static Note GetNote(string noteLetterValue, string accidentValue)
     {
@@ -178,30 +153,31 @@ public class Chord : IEquatable<Chord>
         return new Note(noteLetter, accident);
     }
 
-    private static Tonality GetTonality(string diminutiveOrAugmentedValue, string tonality)
+    private static Tonality GetTonality(string complement, string tonality)
     {
-        if (diminutiveOrAugmentedValue == Tonality.Augmented.GetDescription())
+        try
         {
-            return Tonality.Augmented;
+            return EnumUtils.Parse<Tonality>(complement);
         }
-        else if (diminutiveOrAugmentedValue == Tonality.Diminished.GetDescription())
+        catch (Exception)
         {
-            return Tonality.Diminished;
-        }
-        else if (diminutiveOrAugmentedValue == Tonality.HalfDiminished.GetDescription())
-        {
-            return Tonality.HalfDiminished;
-        }
-        else
-        {
-            return EnumUtils.Parse<Tonality>(tonality);
+            try
+            {
+                return EnumUtils.Parse<Tonality>(tonality);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unknown tonality");
+            }
         }
     }
 
-    private static string GetComplement(Tonality tonality, string text)
+    private static string GetComplement(Tonality tonality, string text) => tonality switch
     {
-        return tonality == Tonality.Augmented || tonality == Tonality.Diminished || tonality == Tonality.HalfDiminished ? "" : text;
-    }
+        Tonality.Augmented or Tonality.Diminished or Tonality.HalfDiminished => "",
+        Tonality.Minor => text[1..],
+        _ => text
+    };
 
     private static Note GetInversion(string noteLetterValue, string accidentValue)
     {
@@ -214,4 +190,7 @@ public class Chord : IEquatable<Chord>
             return null;
         }
     }
+
+    [GeneratedRegex("^((?<key>[A-G])(?<chromatism>##?|bb?)?)(?<complement>\\+|°|((?<tonality>m?)(2|4|5|6|7M?|maj7|9M?|maj9|11|13|sus(2|4)?|add(2|3|5|6|9|11|13))?)?(\\((b2|2|4|4#|b5|5|#5|6|7M?|maj7|b9|9M?|maj9|11|#11|13|sus(2|4)?|add(2|3|5|6|9|11|13))(,(b2|2|4|4#|b5|5|#5|6|7M?|maj7|b9|9|11|#11|13|sus(2|4)|add(2|3|5|6|9|11|13)))*\\))?)(\\/(?<inversionKey>[A-G])(?<inversionChromatism>##?|bb?)?)?$", RegexOptions.Compiled)]
+    private static partial Regex ChordRegex();
 }
