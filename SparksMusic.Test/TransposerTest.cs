@@ -113,6 +113,8 @@ namespace SparksMusic.Test
         [InlineData("A##m")]
         [InlineData("Abm")]
         [InlineData("Abbm")]
+        [InlineData("A6")]
+        [InlineData("Am6")]
         [InlineData("A7")]
         [InlineData("Am7")]
         [InlineData("Am7M")]
@@ -122,6 +124,18 @@ namespace SparksMusic.Test
         [InlineData("A#m(b5,11,13)/G#")]
         [InlineData("A+")]
         [InlineData("A\u00B0")]
+        [InlineData("Amaj7")]
+        [InlineData("Amaj9")]
+        [InlineData("Asus")]
+        [InlineData("Asus2")]
+        [InlineData("Asus4")]
+        [InlineData("Aadd2")]
+        [InlineData("Aadd3")]
+        [InlineData("Aadd5")]
+        [InlineData("Aadd6")]
+        [InlineData("Aadd9")]
+        [InlineData("Aadd11")]
+        [InlineData("Aadd13")]
         public void Should_ReturnTrue_When_CallIsValidMethodPassingAValidChordName(string chordName)
         {
             Assert.True(Transposer.IsChord(chordName));
@@ -145,6 +159,20 @@ namespace SparksMusic.Test
         [InlineData("A/")]
         [InlineData("A/GF")]
         [InlineData("AG")]
+        [InlineData("Amaj")]
+        [InlineData("Amaj1")]
+        [InlineData("Amaj4")]
+        [InlineData("Amaj5")]
+        [InlineData("Amaj8")]
+        [InlineData("Amaj10")]
+        [InlineData("Asus22")]
+        [InlineData("Aadd")]
+        [InlineData("Aadd0")]
+        [InlineData("Aadd1")]
+        [InlineData("Aadd4")]
+        [InlineData("Aadd7")]
+        [InlineData("Aadd8")]
+        [InlineData("Aadd10")]
         public void Should_ReturnFalse_When_CallIsValidMethodPassingAInvalidChordName(string chordName)
         {
             Assert.False(Transposer.IsChord(chordName));
