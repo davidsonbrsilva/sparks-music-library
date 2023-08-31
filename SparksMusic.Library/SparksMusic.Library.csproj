@@ -2,14 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\davidson\lab\proj\transposer\SparksMusic.Library\SparksMusic.Library.xml</DocumentationFile>
-    <LangVersion>latest</LangVersion>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <LangVersion>latest</LangVersion>
+    <PackageId>SparksMusic.Library</PackageId>
+    <Title>Sparks Music Library</Title>
+    <Version>1.0.0</Version>
+    <Authors>Davidson Bruno</Authors>
+    <Description>Sparks Music Library is a library of classes built for recognition, extraction and transposition of musical chords.</Description>
+    <PackageTags>Music;Chords;Transposer;</PackageTags>
+    <RepositoryUrl>https://github.com/davidsonbrsilva/sparks-music-library</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 </Project>
