@@ -4,7 +4,7 @@
 
 [[See In English](README.md)]
 
-**Sparks Music Library** é uma biblioteca de classes construída em .Net 5 para reconhecimento, extração e transposição de acordes musicais.
+**Sparks Music Library** é uma biblioteca de classes construída para reconhecimento, extração e transposição de acordes musicais.
 
 É muito comum encontrarmos soluções de transposição que reduzem o mapeamento de notas aos doze sons possíveis de se reproduzir na escala ocidental, fazendo com que ela contenha sustenidos ou bemóis, mas não ambos. Isso pode limitar o desejo do usuário de enxergar a enarmonia equivalente à gerada pela transposição. Por exemplo, o resultado desejado pode ser o campo harmônico de `Bb`, mas o que se obtém é o campo harmônico de `A#`.
 
@@ -14,6 +14,8 @@ Ambos `Bb` e `A#` são chamados de acordes enarmônicos (produzem o mesmo som, m
 
 - [Requisitos](#requisitos)
 - [Instalação](#instalação)
+  - [Instalação via Nuget](#instalação-via-nuget)
+  - [Instalação manual](#instalação-manual)
 - [Testes](#testes)
 - [Guia rápido de uso](#guia-rápido-de-uso)
   - [Transposição](#transposição)
@@ -26,26 +28,42 @@ Ambos `Bb` e `A#` são chamados de acordes enarmônicos (produzem o mesmo som, m
 
 ## Requisitos
 
-- [.Net 5.0 SDK](https://www.nvidia.com/en-us/geforce-now/download/)
-- [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads/)* (opcional, mas recomendado)
-
-> \* .Net 5.0 SDK já incluso. Você não precisa instalá-lo se optar pelo Visual Studio.
+- [.Net 7.0 SDK](https://dotnet.microsoft.com/pt-br/download/dotnet/7.0)
 
 ## Instalação
 
-Clone o repositório:
+### Instalação via Nuget
+
+1. Certifique-se de que você já possua a origem de pacote https://nuget.pkg.github.com/davidsonbrsilva/index.json:
+```
+dotnet nuget list source
+```
+
+2. Se não possuir, adicione a seguinte origem de pacote:
+```
+dotnet nuget add source https://nuget.pkg.github.com/davidsonbrsilva/index.json -n github.com/davidsonbrsilva
+```
+
+3. Então navegue para o diretório do seu projeto e adicione a referência do pacote:
+```
+dotnet add package SparksMusic.Library
+```
+
+### Instalação manual
+
+1. Clone o repositório:
 
 ```
 git clone https://github.com/davidsonbrsilva/sparks-music-library.git
 ```
 
-Acesse a pasta raiz do projeto:
+2. Acesse a pasta raiz do projeto:
 
 ```
 cd sparks-music-library
 ```
 
-Construa a biblioteca:
+3. Construa a biblioteca:
 
 ```
 dotnet build
