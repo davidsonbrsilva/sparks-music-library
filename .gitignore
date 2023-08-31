@@ -411,3 +411,5 @@ SparksMusic.ApplicationTest
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
+
+nuget.config
