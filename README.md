@@ -68,7 +68,7 @@ cd sparks-music-library
 3. Build the library:
 
 ```
-dotnet build
+dotnet build -c Release
 ```
 
 The library files will be generated and it will be ready for usage.
