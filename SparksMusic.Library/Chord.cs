@@ -174,7 +174,11 @@ public partial class Chord : IEquatable<Chord>
 
     private static string GetComplement(Tonality tonality, string text) => tonality switch
     {
-        Tonality.Augmented or Tonality.Diminished or Tonality.HalfDiminished => "",
+        Tonality.Augmented 
+          or Tonality.Diminished 
+          or Tonality.HalfDiminished 
+          or Tonality.Sus2 
+          or Tonality.Sus4 => "",
         Tonality.Minor => text[1..],
         _ => text
     };
