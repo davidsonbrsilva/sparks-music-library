@@ -25,6 +25,8 @@ namespace SparksMusic.Test
         [InlineData("A#/Db", 2, "C/D#")]
         [InlineData("A#/Bb", 0, "A#")]
         [InlineData("A#/Bb", 2, "C")]
+        [InlineData("Asus2", 2, "Bsus2")]
+        [InlineData("Asus4", 2, "Bsus4")]
         public void Should_TransposeChordUp_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chordName, int semitones, string expected)
         {
             var chord = new Chord(chordName);
@@ -74,6 +76,8 @@ namespace SparksMusic.Test
         [InlineData("A#/Bb", 0, "A#")]
         [InlineData("A#/Bb", 2, "G#")]
         [InlineData("A##/Dbb", 2, "A/Bb")]
+        [InlineData("Asus2", 2, "Gsus2")]
+        [InlineData("Asus4", 2, "Gsus4")]
         public void Should_TransposeChordDown_When_CallTransposeUpMethodPassingAValidChordAsArgument(string chord, int semitones, string expected)
         {
             Assert.Equal(expected, Transposer.TransposeDown(chord, semitones).ToString());
