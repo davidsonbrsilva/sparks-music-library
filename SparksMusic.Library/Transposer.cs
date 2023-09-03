@@ -222,11 +222,11 @@ public static class Transposer
     }
 
     /// <summary>
-    /// Get the number of semitones from a chord to another.
+    /// Get the number of semitones from a note to another.
     /// </summary>
-    /// <param name="from">The origin chord</param>
-    /// <param name="to">The destiny chord</param>
-    /// <returns>The number of semitones from a chord to another.</returns>
+    /// <param name="from">The origin note</param>
+    /// <param name="to">The destiny note</param>
+    /// <returns>The number of semitones from a note to another.</returns>
     public static int GetSemitones(Note from, Note to)
     {
         var (polarizedOrigin, polarizedDestiny) = MatchChromaticPole(from, to);
@@ -254,10 +254,10 @@ public static class Transposer
     }
 
     /// <summary>
-    /// Check if two chords have different chromatic poles.
+    /// Check if two notes have different chromatic poles.
     /// </summary>
-    /// <param name="note1">The first chord</param>
-    /// <param name="note2">The second chord</param>
+    /// <param name="note1">The first note</param>
+    /// <param name="note2">The second note</param>
     /// <returns>True if both have different chromatic poles.</returns>
     public static bool HasDifferentChromaticPole(Note note1, Note note2)
     {
